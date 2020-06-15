@@ -169,10 +169,10 @@ updated by many contributors over the Internet.</p>
 <p>The editor was originally designed to recover a deleted file from an HFS+ partition.</p>
 <p>After that, pancake decided to extend the tool to have a pluggable io to be able to attach to processes and implemented the debugger functionalities, support for multiple architectures, and code analysis.</p>
 <p>Since then, the project has evolved to provide a complete framework for analyzing binaries, while making use of basic UNIX concepts. Those concepts include the famous &quot;everything is a file&quot;, &quot;small programs that interact using stdin/stdout&quot;, and &quot;keep it simple&quot; paradigms.</p>
-<p>The need for scripting showed the fragility of the initial design: a monolithic tool made the API hard to use, and so a deep refactoring was needed. In 2009 radare2 (r2) was born as a fork of radare1. The refactor added flexibility and dynamic features. This enabled much better integration, paving the way to use r2 <a href="https://github.com/radare/radare2-bindings">from different programming languages</a>. Later on, the <a href="https://github.com/radare/radare2-r2pipe">r2pipe API</a> allowed access to radare2 via pipes from any language.</p>
+<p>The need for scripting showed the fragility of the initial design: a monolithic tool made the API hard to use, and so a deep refactoring was needed. In 2009 radare2 (r2) was born as a fork of radare1. The refactor added flexibility and dynamic features. This enabled much better integration, paving the way to use r2 <a href="https://github.com/radareorg/radare2-bindings">from different programming languages</a>. Later on, the <a href="https://github.com/radareorg/radare2-r2pipe">r2pipe API</a> allowed access to radare2 via pipes from any language.</p>
 <p>What started as a one-man project, with some eventual contributions, gradually evolved into a big community-based project around 2014. The number of users was growing fast, and the author-and main developer-had to switch roles from coder to manager in order to integrate the work of the different developers that were joining the project.</p>
-<p>Instructing users to report their issues allows the project to define new directions to evolve in. Everything is managed in <a href="https://github.com/radare/radare2">radare2's GitHub</a> and discussed in the Telegram channel.</p>
-<p>The project remains active at the time of writing this book, and there are several side projects that provide, among other things, a graphical user interface (<a href="https://github.com/radareorg/cutter">Cutter</a>), a decompiler (<a href="https://github.com/wargio/r2dec-js">r2dec</a>, <a href="https://github.com/radareorg/radeco">radeco</a>), Frida integration (<a href="https://github.com/nowsecure/r2frida">r2frida</a>), Yara, Unicorn, Keystone, and many other projects indexed in the <a href="https://github.com/radare/radare2-pm">r2pm</a> (the radare2 package manager).</p>
+<p>Instructing users to report their issues allows the project to define new directions to evolve in. Everything is managed in <a href="https://github.com/radareorg/radare2">radare2's GitHub</a> and discussed in the Telegram channel.</p>
+<p>The project remains active at the time of writing this book, and there are several side projects that provide, among other things, a graphical user interface (<a href="https://github.com/radareorg/cutter">Cutter</a>), a decompiler (<a href="https://github.com/wargio/r2dec-js">r2dec</a>, <a href="https://github.com/radareorg/radeco">radeco</a>), Frida integration (<a href="https://github.com/nowsecure/r2frida">r2frida</a>), Yara, Unicorn, Keystone, and many other projects indexed in the <a href="https://github.com/radareorg/radare2-pm">r2pm</a> (the radare2 package manager).</p>
 <p>Since 2016, the community gathers once a year in <a href="https://www.radare.org/con/">r2con</a>, a congress around radare2 that takes place in Barcelona.</p>
 <h2><a class="header" href="#the-framework" id="the-framework">The Framework</a></h2>
 <p>The Radare2 project is a set of small command-line utilities that can be used together or independently.</p>
@@ -292,11 +292,11 @@ awesome
 </code></pre>
 <h2><a class="header" href="#downloading-radare2" id="downloading-radare2">Downloading radare2</a></h2>
 <p>You can get radare from the website, <a href="http://radare.org">http://radare.org</a>,
-or the GitHub repository: <a href="https://github.com/radare/radare2">https://github.com/radare/radare2</a></p>
+or the GitHub repository: <a href="https://github.com/radareorg/radare2">https://github.com/radareorg/radare2</a></p>
 <p>Binary packages are available for a number of operating systems (Ubuntu, Maemo, Gentoo, Windows, iPhone, and so on). Yet, you are highly encouraged to get the source and compile it yourself to better understand the dependencies, to make examples more accessible and of course to have the most recent version.</p>
 <p>A new stable release is typically published every month. Nightly tarballs are sometimes available at <a href="http://bin.rada.re/">http://bin.rada.re/</a>.</p>
 <p>The radare development repository is often more stable than the 'stable' releases. To obtain the latest version:</p>
-<pre><code>$ git clone https://github.com/radare/radare2.git
+<pre><code>$ git clone https://github.com/radareorg/radare2.git
 </code></pre>
 <p>This will probably take a while, so take a coffee break and continue reading this book.</p>
 <p>To update your local copy of the repository, use <code>git pull</code> anywhere in the radare2 source code tree:</p>
@@ -353,7 +353,7 @@ $ sudo gmake install
 <pre><code>$ sys/static.sh
 </code></pre>
 <h3><a class="header" href="#docker" id="docker">Docker</a></h3>
-<p>Radare2 repository ships a <a href="https://github.com/radare/radare2/blob/master/Dockerfile">Dockerfile</a> that you can use with Docker.</p>
+<p>Radare2 repository ships a <a href="https://github.com/radareorg/radare2/blob/master/Dockerfile">Dockerfile</a> that you can use with Docker.</p>
 <p>This dockerfile is also used by Remnux distribution from SANS, and is available on the docker <a href="https://registry.hub.docker.com/u/remnux/radare2/">registryhub</a>.</p>
 <h2><a class="header" href="#cleaning-up-old-radare2-installations" id="cleaning-up-old-radare2-installations">Cleaning Up Old Radare2 Installations</a></h2>
 <pre><code>./configure --prefix=/old/r2/prefix/installation
@@ -362,7 +362,7 @@ make purge
 <h2><a class="header" href="#windows" id="windows">Windows</a></h2>
 <p>Radare2 relies on the Meson build system generator to support compilation on all platforms, including Windows. Meson will generate a Visual Studio Solution, all the necessary project files, and wire up the Microsoft Visual C++ compiler for you.</p>
 <blockquote>
-<p><strong>tip</strong> You can download nightly binaries from https://bin.rada.re.</p>
+<p><strong>tip</strong> You can download nightly binaries from https://ci.appveyor.com/project/radareorg/radare2/history. Be sure to download only from <code>master</code> branch!</p>
 </blockquote>
 <h3><a class="header" href="#prerequisites" id="prerequisites">Prerequisites</a></h3>
 <ul>
@@ -399,9 +399,6 @@ make purge
 </ol>
 <p>Any time you wish to enter this environment, open the Anaconda Prompt and re-issue <code>activate r2</code>. Conversely, <code>deactivate</code> will leave the environment.</p>
 <h5><a class="header" href="#install-meson" id="install-meson">Install Meson</a></h5>
-<blockquote>
-<p><strong>tip</strong> All versions of Meson at or below 0.47.1 have a bug that prevent normal use on Windows. Because there's no official release with the fixes available, you must install from sources. The following steps will walk you through this. We will update this documentation as soon as 0.48 is officially released.</p>
-</blockquote>
 <ol>
 <li>Enter the Radare2 Conda environment, if needed (<code>activate r2</code>)</li>
 <li>Download https://github.com/mesonbuild/meson/archive/master.zip</li>
@@ -428,7 +425,7 @@ make purge
 <p>Follow these steps to clone the Radare2 git repository.</p>
 <ol>
 <li>In your Radare2 Conda environment, navigate to a location where the code will be saved and compiled. This location needs approximately <strong>3-4GiB</strong> of space</li>
-<li>Clone the repository with <code>git clone https://github.com/radare/radare2.git</code></li>
+<li>Clone the repository with <code>git clone https://github.com/radareorg/radare2.git</code></li>
 </ol>
 <h4><a class="header" href="#compile-radare2-code" id="compile-radare2-code">Compile Radare2 Code</a></h4>
 <p>Follow these steps to compile the Radare2 Code.</p>
@@ -777,7 +774,7 @@ For a more compact register value representation you might use <code>dr=</code> 
 You can also manipulate the hardware and the extended/floating point registers.</p>
 <h2><a class="header" href="#contributing" id="contributing">Contributing</a></h2>
 <h3><a class="header" href="#radare2-book" id="radare2-book">Radare2 Book</a></h3>
-<p>If you want to contribute to the Radare2 book, you can do it at the <a href="https://github.com/radare/radare2book">Github repository</a>.
+<p>If you want to contribute to the Radare2 book, you can do it at the <a href="https://github.com/radareorg/radare2book">Github repository</a>.
 Suggested contributions include:</p>
 <ul>
 <li>Crackme writeups</li>
@@ -788,7 +785,7 @@ Suggested contributions include:</p>
 <li>Missing content from the Radare1 book updated to Radare2</li>
 </ul>
 <p>Please get permission to port any content you do not own/did not create before you put it in the Radare2 book.</p>
-<p>See <a href="https://github.com/radare/radare2/blob/master/DEVELOPERS.md">https://github.com/radare/radare2/blob/master/DEVELOPERS.md</a> for general help on contributing to radare2.</p>
+<p>See <a href="https://github.com/radareorg/radare2/blob/master/DEVELOPERS.md">https://github.com/radareorg/radare2/blob/master/DEVELOPERS.md</a> for general help on contributing to radare2.</p>
 <h1><a class="header" href="#configuration" id="configuration">Configuration</a></h1>
 <p>The core reads <code>~/.config/radare2/radare2rc</code> while starting. You can add <code>e</code> commands to this file to tune the radare2 configuration to your taste.</p>
 <p>To prevent radare2 from parsing this file at startup, pass it the <code>-N</code> option.</p>
@@ -2626,7 +2623,7 @@ hits: 1
 <h2><a class="header" href="#adding-metadata-to-disassembly" id="adding-metadata-to-disassembly">Adding Metadata to Disassembly</a></h2>
 <p>The typical work involved in reversing binary files makes powerful annotation capabilities essential.
 Radare offers multiple ways to store and retrieve such metadata.</p>
-<p>By following common basic UNIX principles, it is easy to write a small utility in a scripting language which uses <code>objdump</code>, <code>otool</code> or any other existing utility to obtain information from a binary and to import it into radare. For example, take a look at <code>idc2r.py</code> shipped with <a href="https://github.com/radare/radare2ida">radare2ida</a>. To use it, invoke it as <code>idc2r.py file.idc &gt; file.r2</code>. It reads an IDC file exported from an IDA Pro database and produces an r2 script containing the same comments, names of functions and other data. You can import the resulting 'file.r2' by using the dot <code>.</code> command of radare:</p>
+<p>By following common basic UNIX principles, it is easy to write a small utility in a scripting language which uses <code>objdump</code>, <code>otool</code> or any other existing utility to obtain information from a binary and to import it into radare. For example, take a look at <code>idc2r.py</code> shipped with <a href="https://github.com/radareorg/radare2ida">radare2ida</a>. To use it, invoke it as <code>idc2r.py file.idc &gt; file.r2</code>. It reads an IDC file exported from an IDA Pro database and produces an r2 script containing the same comments, names of functions and other data. You can import the resulting 'file.r2' by using the dot <code>.</code> command of radare:</p>
 <pre><code>[0x00000000]&gt; . file.r2
 </code></pre>
 <p>The <code>.</code> command is used to interpret Radare commands from external sources, including files and program output. For example, to omit generation of an intermediate file and import the script directly you can use this combination:</p>
@@ -3562,7 +3559,7 @@ local_32h
 </code></pre>
 <h2><a class="header" href="#type-inference" id="type-inference">Type inference</a></h2>
 <p>The type inference for local variables and arguments is well integrated with the command <code>afta</code>.</p>
-<p>Let's see an example of this with a simple <a href="https://github.com/radare/radare2book/tree/master/examples/hello_world">hello_world</a> binary</p>
+<p>Let's see an example of this with a simple <a href="https://github.com/radareorg/radare2book/tree/master/examples/hello_world">hello_world</a> binary</p>
 <pre><code>[0x000007aa]&gt; pdf
 |           ;-- main:
 / (fcn) sym.main 157
@@ -4815,7 +4812,7 @@ r2pipe.open('/bin/ls', (err, res) =&gt; {
 });
 </code></pre>
 <p>Checkout the GIT repository for more examples and details.</p>
-<p>https://github.com/radare/radare2-r2pipe/blob/master/nodejs/r2pipe/README.md</p>
+<p>https://github.com/radareorg/radare2-r2pipe/blob/master/nodejs/r2pipe/README.md</p>
 <h2><a class="header" href="#go" id="go">Go</a></h2>
 <pre><code>$ r2pm -i r2pipe-go
 </code></pre>
@@ -5127,7 +5124,7 @@ oo+                reopen current file in read-write
 <p><code>r2 -c $@ | awk $@</code>  - run through awk to get asm from function =&gt; [<a href="http://sprunge.us/dEOK">link</a>]</p>
 <p><code>[0x80480423]&gt; . scriptfile</code> - interpret this file =&gt; [<a href="http://asciinema.org/a/12017">video</a>]</p>
 <p><code>[0x80480423]&gt; #!c</code> - enter C repl  (see <code>#!</code> to list all available RLang plugins)  =&gt; [<a href="http://asciinema.org/a/12019">video</a>], everything have to be done in a oneliner or a .c file must be passed as an argument.</p>
-<p>To get <code>#!python</code> and much more, just build <a href="https://github.com/radare/radare2-bindings">radare2-bindings</a></p>
+<p>To get <code>#!python</code> and much more, just build <a href="https://github.com/radareorg/radare2-bindings">radare2-bindings</a></p>
 <h2><a class="header" href="#how-to-list-source-code-as-in-gdb-list-" id="how-to-list-source-code-as-in-gdb-list-">How to list Source code as in gdb list ?</a></h2>
 <p><code>CL @ sym.main</code> - though the feature is highly experimental</p>
 <h1><a class="header" href="#shortcuts" id="shortcuts">shortcuts</a></h1>
@@ -5165,7 +5162,7 @@ oo+                reopen current file in read-write
 <tr><td>step over</td><td><code>F8</code></td><td><code>dso</code></td><td><code>S</code></td><td><code>s</code></td><td><code>p</code></td></tr>
 <tr><td>step until a specific address</td><td>?</td><td><code>dsu &lt;addr&gt;</code></td><td>?</td><td><code>s</code></td><td><code>g &lt;addr&gt;</code></td></tr>
 <tr><td>Run until return</td><td><code>Ctrl+F7</code></td><td><code>dcr</code></td><td>?</td><td><code>finish</code></td><td><code>gu</code></td></tr>
-<tr><td>Run until cursor</td><td><code>F4</code></td><td><a href="https://github.com/radare/radare2/issues/249">#249</a></td><td><a href="https://github.com/radare/radare2/issues/249">#249</a></td><td>N/A</td><td>N/A</td></tr>
+<tr><td>Run until cursor</td><td><code>F4</code></td><td><a href="https://github.com/radareorg/radare2/issues/249">#249</a></td><td><a href="https://github.com/radareorg/radare2/issues/249">#249</a></td><td>N/A</td><td>N/A</td></tr>
 <tr><td>Show Backtrace</td><td><code>?</code></td><td><code>dbt</code></td><td>?</td><td><code>bt</code></td><td></td></tr>
 <tr><td>display Register</td><td>On register Windows</td><td><code>dr all</code></td><td>Shown in Visual mode</td><td><code>info registers</code></td><td><code>r</code></td></tr>
 <tr><td>display eax</td><td>On register Windows</td><td><code>dr?eax</code></td><td>Shown in Visual mode</td><td><code>info registers eax</code></td><td><code>r rax</code></td></tr>
@@ -7265,9 +7262,9 @@ R_API RLibStruct radare_plugin = {
 </ul>
 <p>Check out how the NIOS II CPU disassembly plugin was implemented by reading those commits:</p>
 <p>Implement RAsm plugin:
-https://github.com/radare/radare2/commit/933dc0ef6ddfe44c88bbb261165bf8f8b531476b</p>
+https://github.com/radareorg/radare2/commit/933dc0ef6ddfe44c88bbb261165bf8f8b531476b</p>
 <p>Implement RAnal plugin:
-https://github.com/radare/radare2/commit/ad430f0d52fbe933e0830c49ee607e9b0e4ac8f2</p>
+https://github.com/radareorg/radare2/commit/ad430f0d52fbe933e0830c49ee607e9b0e4ac8f2</p>
 <h2><a class="header" href="#implementing-a-new-analysis-plugin" id="implementing-a-new-analysis-plugin">Implementing a new analysis plugin</a></h2>
 <p>After implementing disassembly plugin, you might have noticed that output
 is far from being good - no proper highlighting, no reference lines
@@ -7368,11 +7365,11 @@ R_API RLibStruct radare_plugin = {
 <p>After compiling radare2 will list this plugin in the output:</p>
 <pre><code>_dA_  _8_16      snes        LGPL3   SuperNES CPU
 </code></pre>
-<p><strong>snes_op_table</strong>.h: https://github.com/radare/radare2/blob/master/libr/asm/arch/snes/snes_op_table.h</p>
+<p><strong>snes_op_table</strong>.h: https://github.com/radareorg/radare2/blob/master/libr/asm/arch/snes/snes_op_table.h</p>
 <p>Example:</p>
 <ul>
-<li><strong>6502</strong>: https://github.com/radare/radare2/commit/64636e9505f9ca8b408958d3c01ac8e3ce254a9b</li>
-<li><strong>SNES</strong>: https://github.com/radare/radare2/commit/60d6e5a1b9d244c7085b22ae8985d00027624b49</li>
+<li><strong>6502</strong>: https://github.com/radareorg/radare2/commit/64636e9505f9ca8b408958d3c01ac8e3ce254a9b</li>
+<li><strong>SNES</strong>: https://github.com/radareorg/radare2/commit/60d6e5a1b9d244c7085b22ae8985d00027624b49</li>
 </ul>
 <h2><a class="header" href="#implementing-a-new-format" id="implementing-a-new-format">Implementing a new format</a></h2>
 <h3><a class="header" href="#to-enable-virtual-addressing" id="to-enable-virtual-addressing">To enable virtual addressing</a></h3>
@@ -7467,11 +7464,11 @@ R_API RLibStruct radare_plugin = {
 </code></pre>
 <h3><a class="header" href="#some-examples" id="some-examples">Some Examples</a></h3>
 <ul>
-<li>XBE - https://github.com/radare/radare2/pull/972</li>
-<li>COFF - https://github.com/radare/radare2/pull/645</li>
-<li>TE - https://github.com/radare/radare2/pull/61</li>
-<li>Zimgz - https://github.com/radare/radare2/commit/d1351cf836df3e2e63043a6dc728e880316f00eb</li>
-<li>OMF - https://github.com/radare/radare2/commit/44fd8b2555a0446ea759901a94c06f20566bbc40</li>
+<li>XBE - https://github.com/radareorg/radare2/pull/972</li>
+<li>COFF - https://github.com/radareorg/radare2/pull/645</li>
+<li>TE - https://github.com/radareorg/radare2/pull/61</li>
+<li>Zimgz - https://github.com/radareorg/radare2/commit/d1351cf836df3e2e63043a6dc728e880316f00eb</li>
+<li>OMF - https://github.com/radareorg/radare2/commit/44fd8b2555a0446ea759901a94c06f20566bbc40</li>
 </ul>
 <h2><a class="header" href="#write-a-debugger-plugin" id="write-a-debugger-plugin">Write a debugger plugin</a></h2>
 <ul>
@@ -7486,22 +7483,22 @@ R_API RLibStruct radare_plugin = {
 </ul>
 <p>Some commits related to &quot;Implementing a new architecture&quot;</p>
 <ul>
-<li>Extensa: https://github.com/radare/radare2/commit/6f1655c49160fe9a287020537afe0fb8049085d7</li>
-<li>Malbolge: https://github.com/radare/radare2/pull/579</li>
-<li>6502: https://github.com/radare/radare2/pull/656</li>
-<li>h8300: https://github.com/radare/radare2/pull/664</li>
-<li>GBA: https://github.com/radare/radare2/pull/702</li>
-<li>CR16: https://github.com/radare/radare2/pull/721/ &amp;&amp; 726</li>
-<li>XCore: https://github.com/radare/radare2/commit/bb16d1737ca5a471142f16ccfa7d444d2713a54d</li>
+<li>Extensa: https://github.com/radareorg/radare2/commit/6f1655c49160fe9a287020537afe0fb8049085d7</li>
+<li>Malbolge: https://github.com/radareorg/radare2/pull/579</li>
+<li>6502: https://github.com/radareorg/radare2/pull/656</li>
+<li>h8300: https://github.com/radareorg/radare2/pull/664</li>
+<li>GBA: https://github.com/radareorg/radare2/pull/702</li>
+<li>CR16: https://github.com/radareorg/radare2/pull/721/ &amp;&amp; 726</li>
+<li>XCore: https://github.com/radareorg/radare2/commit/bb16d1737ca5a471142f16ccfa7d444d2713a54d</li>
 <li>SharpLH5801: https://github.com/neuschaefer/radare2/commit/f4993cca634161ce6f82a64596fce45fe6b818e7</li>
-<li>MSP430: https://github.com/radare/radare2/pull/1426</li>
-<li>HP-PA-RISC: https://github.com/radare/radare2/commit/f8384feb6ba019b91229adb8fd6e0314b0656f7b</li>
-<li>V810: https://github.com/radare/radare2/pull/2899</li>
-<li>TMS320: https://github.com/radare/radare2/pull/596</li>
+<li>MSP430: https://github.com/radareorg/radare2/pull/1426</li>
+<li>HP-PA-RISC: https://github.com/radareorg/radare2/commit/f8384feb6ba019b91229adb8fd6e0314b0656f7b</li>
+<li>V810: https://github.com/radareorg/radare2/pull/2899</li>
+<li>TMS320: https://github.com/radareorg/radare2/pull/596</li>
 </ul>
 <h2><a class="header" href="#implementing-a-new-pseudo-architecture" id="implementing-a-new-pseudo-architecture">Implementing a new pseudo architecture</a></h2>
 <p>This is an simple plugin for z80 that you may use as example:</p>
-<p>https://github.com/radare/radare2/commit/8ff6a92f65331cf8ad74cd0f44a60c258b137a06</p>
+<p>https://github.com/radareorg/radare2/commit/8ff6a92f65331cf8ad74cd0f44a60c258b137a06</p>
 <h1><a class="header" href="#python-plugins" id="python-plugins">Python plugins</a></h1>
 <p>At first, to be able to write a plugins in Python for radare2 you need to install
 r2lang plugin: <code>r2pm -i lang-python</code>.
@@ -7609,8 +7606,8 @@ print(r2lang.plugin(&quot;anal&quot;, mycpu_anal))
 <p>Or you can load it from the r2 shell: <code>#!python mycpu.py</code></p>
 <p>See also:</p>
 <ul>
-<li><a href="https://github.com/radare/radare2-bindings/blob/master/libr/lang/p/test-py-asm.py">Python</a></li>
-<li><a href="https://github.com/radare/radare2-bindings/blob/master/libr/lang/p/dukasm.js">Javascript</a></li>
+<li><a href="https://github.com/radareorg/radare2-bindings/blob/master/libr/lang/p/test-py-asm.py">Python</a></li>
+<li><a href="https://github.com/radareorg/radare2-bindings/blob/master/libr/lang/p/dukasm.js">Javascript</a></li>
 </ul>
 <h3><a class="header" href="#implementing-new-format-plugin-in-python" id="implementing-new-format-plugin-in-python">Implementing new format plugin in Python</a></h3>
 <p>Note - in the following examples there are missing functions of the actual decoding
@@ -7784,7 +7781,7 @@ R2PM_END
 <p>Crackmes (from &quot;crack me&quot; challenge) are the training ground for reverse engineering people. This section will go over tutorials on how to defeat various crackmes using r2.</p>
 <h1><a class="header" href="#ioli-crackmes" id="ioli-crackmes">IOLI CrackMes</a></h1>
 <p>The IOLI crackme is a good starting point for learning r2. This is a set of tutorials based on the tutorial at <a href="http://dustri.org/b/defeating-ioli-with-radare2.html">dustri</a></p>
-<p>The IOLI crackmes are available at a locally hosted <a href="https://github.com/radare/radare2book/tree/master/crackmes/ioli/IOLI-crackme.tar.gz">mirror</a></p>
+<p>The IOLI crackmes are available at a locally hosted <a href="https://github.com/radareorg/radare2book/tree/master/crackmes/ioli/IOLI-crackme.tar.gz">mirror</a></p>
 <h1><a class="header" href="#ioli-0x00" id="ioli-0x00">IOLI 0x00</a></h1>
 <p>This is the first IOLI crackme, and the easiest one.</p>
 <pre><code>$ ./crackme0x00
@@ -7998,9 +7995,9 @@ use the git version!</p>
 <p>Some highly recommended reading materials:</p>
 <ul>
 <li><a href="https://github.com/pwntester/cheatsheets/blob/master/radare2.md">Cheatsheet by pwntester</a></li>
-<li><a href="https://www.gitbook.com/book/radare/radare2book/details">Radare2 Book</a></li>
+<li><a href="https://www.gitbook.com/book/radareorg/radare2book/details">Radare2 Book</a></li>
 <li><a href="http://radare.today">Radare2 Blog</a></li>
-<li><a href="https://github.com/radare/radare2/wiki">Radare2 Wiki</a></li>
+<li><a href="https://github.com/radareorg/radare2/wiki">Radare2 Wiki</a></li>
 </ul>
 <h2><a class="header" href="#first_steps" id="first_steps">.first_steps</a></h2>
 <p>OK, enough of praising r2, lets start reversing this stuff. First, you have to
@@ -8328,7 +8325,7 @@ itself.</p>
 reverse yet. The thing is that this function uses a jump table at 0x00400a74,</p>
 <p><img src="crackmes/avatao/01-reverse4/img/vmloop/bb-0a74.png" alt="vmloop bb-0a74" /></p>
 <p>and r2 can't yet recognize jump tables
-(<a href="https://github.com/radare/radare2/issues/3201">Issue 3201</a>), so the analysis of
+(<a href="https://github.com/radareorg/radare2/issues/3201">Issue 3201</a>), so the analysis of
 this function is a bit incomplete. This means that we can't really use the graph
 view now, so either we just use visual mode, or fix those basic blocks. The
 entire function is just 542 bytes long, so we certainly could reverse it without

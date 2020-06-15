@@ -163,7 +163,7 @@
 <p><code>r2 -c $@ | awk $@</code>  - run through awk to get asm from function =&gt; [<a href="http://sprunge.us/dEOK">link</a>]</p>
 <p><code>[0x80480423]&gt; . scriptfile</code> - interpret this file =&gt; [<a href="http://asciinema.org/a/12017">video</a>]</p>
 <p><code>[0x80480423]&gt; #!c</code> - enter C repl  (see <code>#!</code> to list all available RLang plugins)  =&gt; [<a href="http://asciinema.org/a/12019">video</a>], everything have to be done in a oneliner or a .c file must be passed as an argument.</p>
-<p>To get <code>#!python</code> and much more, just build <a href="https://github.com/radare/radare2-bindings">radare2-bindings</a></p>
+<p>To get <code>#!python</code> and much more, just build <a href="https://github.com/radareorg/radare2-bindings">radare2-bindings</a></p>
 <h2><a class="header" href="#how-to-list-source-code-as-in-gdb-list-" id="how-to-list-source-code-as-in-gdb-list-">How to list Source code as in gdb list ?</a></h2>
 <p><code>CL @ sym.main</code> - though the feature is highly experimental</p>
 <h1><a class="header" href="#shortcuts" id="shortcuts">shortcuts</a></h1>
@@ -201,7 +201,7 @@
 <tr><td>step over</td><td><code>F8</code></td><td><code>dso</code></td><td><code>S</code></td><td><code>s</code></td><td><code>p</code></td></tr>
 <tr><td>step until a specific address</td><td>?</td><td><code>dsu &lt;addr&gt;</code></td><td>?</td><td><code>s</code></td><td><code>g &lt;addr&gt;</code></td></tr>
 <tr><td>Run until return</td><td><code>Ctrl+F7</code></td><td><code>dcr</code></td><td>?</td><td><code>finish</code></td><td><code>gu</code></td></tr>
-<tr><td>Run until cursor</td><td><code>F4</code></td><td><a href="https://github.com/radare/radare2/issues/249">#249</a></td><td><a href="https://github.com/radare/radare2/issues/249">#249</a></td><td>N/A</td><td>N/A</td></tr>
+<tr><td>Run until cursor</td><td><code>F4</code></td><td><a href="https://github.com/radareorg/radare2/issues/249">#249</a></td><td><a href="https://github.com/radareorg/radare2/issues/249">#249</a></td><td>N/A</td><td>N/A</td></tr>
 <tr><td>Show Backtrace</td><td><code>?</code></td><td><code>dbt</code></td><td>?</td><td><code>bt</code></td><td></td></tr>
 <tr><td>display Register</td><td>On register Windows</td><td><code>dr all</code></td><td>Shown in Visual mode</td><td><code>info registers</code></td><td><code>r</code></td></tr>
 <tr><td>display eax</td><td>On register Windows</td><td><code>dr?eax</code></td><td>Shown in Visual mode</td><td><code>info registers eax</code></td><td><code>r rax</code></td></tr>
