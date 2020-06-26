@@ -166,26 +166,28 @@ Usage: =!cmd args
 </code></pre>
 <p>In general, debugger commands are portable between architectures and operating systems. Still, as radare tries to support the same functionality for all target architectures and operating systems, certain things have to be handled separately. They include injecting shellcodes and handling exceptions. For example, in MIPS targets there is no hardware-supported single-stepping feature. In this case, radare2 provides its own implementation for single-step by using a mix of code analysis and software breakpoints.</p>
 <p>To get basic help for the debugger, type 'd?':</p>
-<pre><code>Usage: d # Debug commands
-db[?]                   Breakpoints commands
-dbt[?]                  Display backtrace based on dbg.btdepth and dbg.btalgo
-dc[?]                   Continue execution
-dd[?]                   File descriptors (!fd in r1)
-de[-sc] [rwx] [rm] [e]  Debug with ESIL (see de?)
-dg &lt;file&gt;               Generate a core-file (WIP)
-dH [handler]            Transplant process to a new handler
-di[?]                   Show debugger backend information (See dh)
-dk[?]                   List, send, get, set, signal handlers of child
-dL [handler]            List or set debugger handler
-dm[?]                   Show memory maps
-do[?]                   Open process (reload, alias for 'oo')
-doo[args]               Reopen in debugger mode with args (alias for 'ood')
-dp[?]                   List, attach to process or thread id
-dr[?]                   Cpu registers
-ds[?]                   Step, over, source line
-dt[?]                   Display instruction traces (dtr=reset)
-dw &lt;pid&gt;                Block prompt until pid dies
-dx[?]                   Inject and run code on target process (See gs)
+<pre><code>Usage: d   # Debug commands
+| db[?]                    Breakpoints commands
+| dbt[?]                   Display backtrace based on dbg.btdepth and dbg.btalgo
+| dc[?]                    Continue execution
+| dd[?]                    File descriptors (!fd in r1)
+| de[-sc] [perm] [rm] [e]  Debug with ESIL (see de?)
+| dg &lt;file&gt;                Generate a core-file (WIP)
+| dH [handler]             Transplant process to a new handler
+| di[?]                    Show debugger backend information (See dh)
+| dk[?]                    List, send, get, set, signal handlers of child
+| dL[?]                    List or set debugger handler
+| dm[?]                    Show memory maps
+| do[?]                    Open process (reload, alias for 'oo')
+| doo[args]                Reopen in debug mode with args (alias for 'ood')
+| doof[file]               Reopen in debug mode from file (alias for 'oodf')
+| doc                      Close debug session
+| dp[?]                    List, attach to process or thread id
+| dr[?]                    Cpu registers
+| ds[?]                    Step, over, source line
+| dt[?]                    Display instruction traces
+| dw &lt;pid&gt;                 Block prompt until pid dies
+| dx[?]                    Inject and run code on target process (See gs)
 </code></pre>
 <p>To restart your debugging session, you can type <code>oo</code> or <code>oo+</code>, depending on desired behavior.</p>
 <pre><code>oo                 reopen current file (kill+fork in debugger)
