@@ -283,7 +283,7 @@ will be written directly into the file. No undo history is saved by
 default.</p>
 <p>Use <code>e io.cache.write=true</code> and the <code>wc</code> command to manage the <em>write cache</em>
 history changes. To undo, redo, commit them to write the changes on the file..</p>
-<p>But, if we want to save the analysis information, comments, flags and
+<p>If, instead, we want to save the analysis information, comments, flags and
 other user-created metadata, we may want to use projects with <code>r2 -p</code> and the <code>P</code> command.</p>
 <table><thead><tr><th align="left">Command</th><th align="left">Description</th></tr></thead><tbody>
 <tr><td align="left">Po [file]</td><td align="left">Open project</td></tr>
@@ -293,7 +293,7 @@ other user-created metadata, we may want to use projects with <code>r2 -p</code>
 <h2><a class="header" href="#usable-variables-in-expression" id="usable-variables-in-expression">Usable variables in expression</a></h2>
 <p>The <code>?$?</code> command will display the variables that can be used in any math
 operation inside the r2 shell. For example, using the <code>? $$</code> command to evaluate
-a number or <code>?v</code> to just the the value in one format.</p>
+a number or <code>?v</code> to just the value in one format.</p>
 <p>All commands in r2 that accept a number supports the use of those variables.</p>
 <table><thead><tr><th align="left">Command</th><th align="left">Description</th></tr></thead><tbody>
 <tr><td align="left">$$</td><td align="left">here (current virtual seek)</td></tr>

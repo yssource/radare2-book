@@ -333,7 +333,7 @@
 <li><code>pcp</code>    python</li>
 </ul>
 <p>If we need to create a .c file containing a binary blob, use the <code>pc</code> command, that creates this output. The default size is like in many other commands: the block size, which can be changed with the <code>b</code> command.</p>
-<p>But we can just temporarily override this block size by expressing it as an argument.</p>
+<p>We can also just temporarily override this block size by expressing it as an argument.</p>
 <pre><code>[0xB7F8E810]&gt; pc 32
 #define _BUFFER_SIZE 32
 unsigned char buffer[_BUFFER_SIZE] = {

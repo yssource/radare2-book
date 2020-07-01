@@ -1406,7 +1406,7 @@ libc.so.6
 <li><code>pcp</code>    python</li>
 </ul>
 <p>If we need to create a .c file containing a binary blob, use the <code>pc</code> command, that creates this output. The default size is like in many other commands: the block size, which can be changed with the <code>b</code> command.</p>
-<p>But we can just temporarily override this block size by expressing it as an argument.</p>
+<p>We can also just temporarily override this block size by expressing it as an argument.</p>
 <pre><code>[0xB7F8E810]&gt; pc 32
 #define _BUFFER_SIZE 32
 unsigned char buffer[_BUFFER_SIZE] = {
@@ -2083,7 +2083,7 @@ By prefixing the commands with numbers, the command is performed multiple times.
 </ul>
 <p>If you are finding it hard to keep track of which mode you are in, just set <code>scr.prompt.mode=true</code> to update the color of the prompt based on the vi-mode.</p>
 <h1><a class="header" href="#visual-mode" id="visual-mode">Visual Mode</a></h1>
-<p>The visual mode is a more user-friendly interface alternative to radare2's command-line prompt.  It allows easy navigation, has a cursor mode for selecting bytes, and offers numerous key bindings to simplify debugger use.
+<p>The visual mode is a more user-friendly interface alternative to radare2's command-line prompt. It allows easy navigation, has a cursor mode for selecting bytes, and offers numerous key bindings to simplify debugger use.
 To enter visual mode, use <code>V</code> command. To exit from it back to command line, press <code>q</code>.</p>
 <h2><a class="header" href="#navigation" id="navigation">Navigation</a></h2>
 <p>Navigation can be done using HJKL or arrow keys and PgUp/PgDown keys. It also understands usual Home/End keys.
@@ -2461,7 +2461,7 @@ Searching 8 bytes from 0x00400238 to 0x0040488f: 53 74 61 6c 6c 6d 61 6e
 <p>It is possible to specify hexadecimal escape sequences in the search string by prepending them with &quot;\x&quot;:</p>
 <pre><code>[0x00000000]&gt; / \x7FELF
 </code></pre>
-<p>But, if you are searching for a string of hexadecimal values, you're probably better of using the <code>/x</code> command:</p>
+<p>if, instead, you are searching for a string of hexadecimal values, you're probably better of using the <code>/x</code> command:</p>
 <pre><code>[0x00000000]&gt; /x 7F454C46
 </code></pre>
 <p>Once the search is done, the results are stored in the <code>searches</code> flag space.</p>
@@ -4226,7 +4226,7 @@ stack upon initialization</li>
 </ul>
 <h1><a class="header" href="#symbols" id="symbols">Symbols</a></h1>
 <p>Radare2 automatically parses available imports and exports sections in the binary,
-but moreover, it can load additional debugging information if present.
+moreover, it can load additional debugging information if present.
 Two main formats are supported: DWARF and PDB (for Windows binaries).
 Note that, unlike many tools radare2 doesn't rely on Windows API to parse
 PDB files, thus they can be loaded on any other supported platform - e.g.
@@ -4385,10 +4385,9 @@ You can show it in JSON format too, which can be useful for scripting:</p>
 ]
 [0x000051c0]&gt;
 </code></pre>
-<p>To remove it just run <code>z-entry</code>
-But if you want to save all created signatures, you need to save it into the SDB file using command
-<code>zos myentry</code>.
-Then we can apply them. Lets open a file again:</p>
+<p>To remove it just run <code>z-entry</code>.</p>
+<p>If you want, instead, to save all created signatures, you need to save it into the SDB file using command <code>zos myentry</code>.</p>
+<p>Then we can apply them. Lets open a file again:</p>
 <pre><code>r2 /bin/ls
  -- Log On. Hack In. Go Anywhere. Get Everything.
 [0x000051c0]&gt; zo myentry
@@ -5563,8 +5562,7 @@ Heap Layout
 </code></pre>
 <h1><a class="header" href="#files-1" id="files-1">Files</a></h1>
 <p>The radare2 debugger allows the user to list and manipulate the file descriptors from the target process.</p>
-<p>This is a useful feature, which is not found in other debuggers, the functionality is similar to the lsof command line tool.</p>
-<p>But have extra subcommands to change the seek, close or duplicate them.</p>
+<p>This is a useful feature, which is not found in other debuggers, the functionality is similar to the lsof command line tool, but have extra subcommands to change the seek, close or duplicate them.</p>
 <p>So, at any time in the debugging session you can replace the stdio file descriptors to use network sockets created by r2, or replace a network socket connection to hijack it.</p>
 <p>This functionality is also available in r2frida by using the dd command prefixed with a backslash. In r2 you may want to see the output of dd? for proper details.</p>
 <h1><a class="header" href="#reverse-debugging" id="reverse-debugging">Reverse Debugging</a></h1>
@@ -6078,7 +6076,7 @@ $ for a in `rafind2 -s lib $F` ; do \
 0x000006e1  6c69 6253 7973 7465 .. libSystem.B.dyli
 0x000006ef  6c69 6200 0000 0000 .. lib......&amp;......
 </code></pre>
-<p>But rafind2 can be also used as a replacement of <code>file</code> to identify the mimetype of a file using the internal magic database of radare2.</p>
+<p>rafind2 can also be used as a replacement of <code>file</code> to identify the mimetype of a file using the internal magic database of radare2.</p>
 <pre><code>$ rafind2 -i /bin/ls
 0x00000000 1 Mach-O
 </code></pre>
@@ -6993,8 +6991,8 @@ $ echo $?
 <p>Note that rahash2 also permits to read from stdin in a stream, so you don't need 4GB of ram to compute the hash of a 4GB file.</p>
 <h2><a class="header" href="#hashing-by-blocks" id="hashing-by-blocks">Hashing by blocks</a></h2>
 <p>When doing forensics, it is useful to compute partial checksums. The reason for that is because you may want to split a huge file into small portions that are easier to identify by contents or regions in the disk.</p>
-<p>This will spot the same hash for blocks containing the same contents. For example, if filled by zeros.</p>
-<p>But also, it can be used to find which blocks have changed between more than one sample dump.</p>
+<p>This will spot the same hash for blocks containing the same contents. For example, if is filled with zeros.</p>
+<p>It can also be used to find which blocks have changed between more than one sample dump.</p>
 <p>This can be useful when analyzing ram dumps from a virtual machine for example. Use this command for this:</p>
 <pre><code>$ rahash2 -B 1M -b -a sha256 /bin/ls
 </code></pre>
@@ -7167,7 +7165,7 @@ dL         # list debug plugins
 mL         # list fs plugins
 ph         # print support hash algoriths
 </code></pre>
-<p>But also using the <code>?</code> value in the associated eval vars.</p>
+<p>You can use the <code>?</code> as value to get the possible values in the associated eval vars.</p>
 <pre><code>e asm.arch=?   # list assembler/disassembler plugins
 e anal.arch=?  # list analysis plugins
 </code></pre>
@@ -7872,7 +7870,7 @@ vaddr=0x080485a9 paddr=0x000005a9 ordinal=004 sz=16 len=15 section=.rodata type=
 <p>This is the message on the password being accepted.</p>
 <pre><code>vaddr=0x080485a9 paddr=0x000005a9 ordinal=004 sz=16 len=15 section=.rodata type=a string=Password OK :)\n
 </code></pre>
-<p>But what is this? It's a string, but we haven't seen it in running the application yet.</p>
+<p>What is this? It's a string, but we haven't seen it in running the application yet.</p>
 <pre><code>vaddr=0x0804858f paddr=0x0000058f ordinal=002 sz=7 len=6 section=.rodata type=a string=250382
 </code></pre>
 <p>Let's give this a shot.</p>
@@ -7992,13 +7990,13 @@ webhack :) ) one of them. There were 3 different games at the conf, and I've
 chosen the one that was provided by <a href="https://avatao.com">avatao</a>. It consisted
 of 8 challenges, most of them being basic web hacking stuff, one sandbox escape,
 one simple buffer overflow exploitation, and there were two reverse engineering
-exercises too.  You can find these challenges on https://platform.avatao.com.</p>
+exercises too. You can find these challenges on https://platform.avatao.com.</p>
 <h2><a class="header" href="#radare2-1" id="radare2-1">.radare2</a></h2>
 <p>I've decided to solve the reversing challenges using
 <a href="http://www.radare.org/r/">radare2</a>, a free and open source reverse engineering
 framework. I have first learned about r2 back in 2011. during a huge project,
 where I had to reverse a massive, 11MB statically linked ELF. I simply needed
-something that I could easily patch Linux ELFs with.  Granted, back then I've
+something that I could easily patch Linux ELFs with. Granted, back then I've
 used r2 alongside IDA, and only for smaller tasks, but I loved the whole concept
 at first sight. Since then, radare2 evolved a lot, and I was planning for some
 time now to solve some crackmes with the framework, and write writeups about
@@ -8218,7 +8216,7 @@ you can use <em>o</em> to seek.</p>
 <p>Lets read main node-by-node! The first block looks like this:</p>
 <p><img src="crackmes/avatao/01-reverse4/img/main/bb-0c63.png" alt="main bb-0c63" /></p>
 <p>We can see that the program reads a word (2 bytes) into the local variable named
-<em>local_10_6</em>, and than compares it to 0xbb8. Thats 3000 in decimal, btw:</p>
+<em>local_10_6</em>, and than compares it to 0xbb8. Thats 3000 in decimal:</p>
 <pre><code>[0x00400c63]&gt; ? 0xbb8
 3000 0xbb8 05670 2.9K 0000:0bb8 3000 10111000 3000.0 0.000000f 0.000000
 </code></pre>
@@ -8394,7 +8392,7 @@ view now, so either we just use visual mode, or fix those basic blocks. The
 entire function is just 542 bytes long, so we certainly could reverse it without
 the aid of the graph mode, but since this writeup aims to include as much r2
 wisdom as possible, I'm going to show you how to define basic blocks.</p>
-<p>But first, lets analyze what we already have! First, <em>rdi</em> is put into local_3.
+<p>First, lets analyze what we already have! First, <em>rdi</em> is put into local_3.
 Since the application is a 64bit Linux executable, we know that <em>rdi</em> is the
 first function argument (as you may have recognized, the automatic analysis of
 arguments and local variables was not entirely correct), and we also know that
@@ -8523,7 +8521,7 @@ it, because it is apparently not stored when you save the project.)</p>
 <p><em><strong>r2 tip</strong></em>: You can move the selected node around in graph view using the
 HJKL keys.</p>
 </blockquote>
-<p>BTW, here is how IDA's graph of this same function looks like for comparison:</p>
+<p>By the way, here is how IDA's graph of this same function looks like for comparison:</p>
 <p><img src="crackmes/avatao/01-reverse4/img/vmloop_ida.png" alt="IDA graph" /></p>
 <p>As we browse through the disassembly of the <em>instr_LETTER</em> basic blocks, we
 should realize a few things. The first: all of the instructions starts with a
@@ -8599,8 +8597,8 @@ a jump or a call, and r2 will seek to the destination address.</p>
 <p>If we seek to that address from the graph mode, we are presented with a message
 that says &quot;Not in a function. Type 'df' to define it here. This is because the
 function is called from a basic block r2 did not recognize, so r2 could not
-find the function either. Lets obey, and type <em>df</em>! A function is indeed created,
-but we want some meaningful name for it. So press <em>dr</em> while still in visual mode,
+find the function either. Lets obey, and type <em>df</em>! A function is indeed created, but
+we want some meaningful name for it. So press <em>dr</em> while still in visual mode,
 and name this function <em>instr_A</em>!</p>
 <p><img src="crackmes/avatao/01-reverse4/img/instr_A/instr_A_minimap.png" alt="instr_A minimap" /></p>
 <blockquote>
@@ -8945,7 +8943,7 @@ will be written directly into the file. No undo history is saved by
 default.</p>
 <p>Use <code>e io.cache.write=true</code> and the <code>wc</code> command to manage the <em>write cache</em>
 history changes. To undo, redo, commit them to write the changes on the file..</p>
-<p>But, if we want to save the analysis information, comments, flags and
+<p>If, instead, we want to save the analysis information, comments, flags and
 other user-created metadata, we may want to use projects with <code>r2 -p</code> and the <code>P</code> command.</p>
 <table><thead><tr><th align="left">Command</th><th align="left">Description</th></tr></thead><tbody>
 <tr><td align="left">Po [file]</td><td align="left">Open project</td></tr>
@@ -8955,7 +8953,7 @@ other user-created metadata, we may want to use projects with <code>r2 -p</code>
 <h2><a class="header" href="#usable-variables-in-expression" id="usable-variables-in-expression">Usable variables in expression</a></h2>
 <p>The <code>?$?</code> command will display the variables that can be used in any math
 operation inside the r2 shell. For example, using the <code>? $$</code> command to evaluate
-a number or <code>?v</code> to just the the value in one format.</p>
+a number or <code>?v</code> to just the value in one format.</p>
 <p>All commands in r2 that accept a number supports the use of those variables.</p>
 <table><thead><tr><th align="left">Command</th><th align="left">Description</th></tr></thead><tbody>
 <tr><td align="left">$$</td><td align="left">here (current virtual seek)</td></tr>

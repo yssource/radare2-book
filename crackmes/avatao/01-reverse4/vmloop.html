@@ -161,7 +161,7 @@ view now, so either we just use visual mode, or fix those basic blocks. The
 entire function is just 542 bytes long, so we certainly could reverse it without
 the aid of the graph mode, but since this writeup aims to include as much r2
 wisdom as possible, I'm going to show you how to define basic blocks.</p>
-<p>But first, lets analyze what we already have! First, <em>rdi</em> is put into local_3.
+<p>First, lets analyze what we already have! First, <em>rdi</em> is put into local_3.
 Since the application is a 64bit Linux executable, we know that <em>rdi</em> is the
 first function argument (as you may have recognized, the automatic analysis of
 arguments and local variables was not entirely correct), and we also know that
@@ -290,7 +290,7 @@ it, because it is apparently not stored when you save the project.)</p>
 <p><em><strong>r2 tip</strong></em>: You can move the selected node around in graph view using the
 HJKL keys.</p>
 </blockquote>
-<p>BTW, here is how IDA's graph of this same function looks like for comparison:</p>
+<p>By the way, here is how IDA's graph of this same function looks like for comparison:</p>
 <p><img src="img/vmloop_ida.png" alt="IDA graph" /></p>
 <p>As we browse through the disassembly of the <em>instr_LETTER</em> basic blocks, we
 should realize a few things. The first: all of the instructions starts with a
@@ -366,8 +366,8 @@ a jump or a call, and r2 will seek to the destination address.</p>
 <p>If we seek to that address from the graph mode, we are presented with a message
 that says &quot;Not in a function. Type 'df' to define it here. This is because the
 function is called from a basic block r2 did not recognize, so r2 could not
-find the function either. Lets obey, and type <em>df</em>! A function is indeed created,
-but we want some meaningful name for it. So press <em>dr</em> while still in visual mode,
+find the function either. Lets obey, and type <em>df</em>! A function is indeed created, but
+we want some meaningful name for it. So press <em>dr</em> while still in visual mode,
 and name this function <em>instr_A</em>!</p>
 <p><img src="img/instr_A/instr_A_minimap.png" alt="instr_A minimap" /></p>
 <blockquote>
