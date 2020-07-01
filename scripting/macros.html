@@ -197,6 +197,19 @@ simple scripting situations. To create a macro that takes arguments you simply a
 [0x004047d6]&gt;
 </code></pre>
 <p>As you can see, the arguments are named by index, starting from 0: $0, $1, ...</p>
+<h1><a class="header" href="#aliases" id="aliases">Aliases</a></h1>
+<p>radare2 also offers aliases which might help you save time by quickly executing your most used commands. They are under <code>$?</code></p>
+<p>The general usage of the feature is: <code>$alias=cmd</code></p>
+<pre><code>[0x00404800]&gt; $disas=pdf
+</code></pre>
+<p>The above command will create an alias <code>disas</code> for <code>pdf</code>. The following command prints the disassembly of the main function.</p>
+<pre><code>[0x00404800]&gt; $disas @ main
+</code></pre>
+<p>Apart from commands, you can also alias a text to be printed, when called.</p>
+<pre><code>[0x00404800]&gt; $my_alias = $test input
+[0x00404800]&gt; $my_alias
+test input
+</code></pre>
 
                     </main>
 
