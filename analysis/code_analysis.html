@@ -367,9 +367,18 @@ disabled to save the time and memory when analyzing big binaries.</p>
 <li><code>anal.limits</code> - enables the range limits for analysis operations</li>
 <li><code>anal.from</code> - starting address of the limit range</li>
 <li><code>anal.to</code> - the corresponding end of the limit range</li>
-<li><code>anal.in</code> - specify search boundaries for analysis (<code>io.maps</code>, <code>io.sections.exec</code>, <code>dbg.maps</code> and many
-more - see <code>e anal.in=?</code> for the complete list)</li>
+<li><code>anal.in</code> - specify search boundaries for analysis. You can set it to <code>io.maps</code>, <code>io.sections.exec</code>, <code>dbg.maps</code> and many more. For example:
+<ul>
+<li>To analyze a specific memory map with <code>anal.from</code> and <code>anal.to</code>, set <code>anal.in = dbg.maps</code>.</li>
+<li>To analyze in the boundaries set by <code>anal.from</code> and <code>anal.to</code>, set <code>anal.in=range</code>.</li>
+<li>To analyze in the current mapped segment or section, you can put <code>anal.in=bin.segment</code> or <code>anal.in=bin.section</code>, respectively.</li>
+<li>To analyze in the current memory map, specify <code>anal.in=dbg.map</code>.</li>
+<li>To analyze in the stack or heap, you can set <code>anal.in=dbg.stack</code> or <code>anal.in=dbg.heap</code>.</li>
+<li>To analyze in the current function or basic block, you can specify <code>anal.in=anal.fcn</code> or <code>anal.in=anal.bb</code>.</li>
 </ul>
+</li>
+</ul>
+<p>Please see <code>e anal.in=??</code> for the complete list.</p>
 <h3><a class="header" href="#jump-tables" id="jump-tables">Jump tables</a></h3>
 <p>Jump tables are one of the trickiest targets in binary reverse engineering. There are hundreds
 of different types, the end result depending on the compiler/linker and LTO stages of optimization.
