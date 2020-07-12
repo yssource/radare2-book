@@ -1622,6 +1622,12 @@ to have the flags, for example inside the functions, with simple and ubiquitous 
 ││`──&gt; 0x00003a32      be07000000     mov esi, 7
 [0x00003a04]&gt;
 </code></pre>
+<h3><a class="header" href="#flag-zones" id="flag-zones">Flag Zones</a></h3>
+<p>radare2 offers flag zones, which lets you label different offsets on the scrollbar, for making it easier to navigate through large binaries. You can set a flag zone on the current seek using:</p>
+<pre><code>[0x00003a04]&gt; fz flag-zone-name
+</code></pre>
+<p>Set <code>scr.scrollbar=1</code> and go to the Visual mode, to see your flag zone appear on the scrollbar on the right end of the window.</p>
+<p>See <code>fz?</code> for more information.</p>
 <h2><a class="header" href="#writing-data" id="writing-data">Writing Data</a></h2>
 <p>Radare can manipulate a loaded binary file in many ways. You can resize the file, move and copy/paste bytes, insert new bytes (shifting data to the end of the block or file), or simply overwrite bytes. New data may be given as a wide-string, assembler instructions, or the data may be read in from another file.</p>
 <p>Resize the file using the <code>r</code> command. It accepts a numeric argument. A positive value sets a new size for the file. A negative one will truncate the file to the current seek position minus N bytes.</p>
