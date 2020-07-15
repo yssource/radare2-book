@@ -1183,8 +1183,8 @@ f redo_0 @ 0x4005b4
 </code></pre>
 <p>The <code>b</code> command is used to change the block size:</p>
 <pre><code>[0x00000000]&gt; b 0x100   ; block size = 0x100
-[0x00000000]&gt; b +16     ;  ... = 0x110
-[0x00000000]&gt; b -32     ;  ... = 0xf0
+[0x00000000]&gt; b+16      ;  ... = 0x110
+[0x00000000]&gt; b-32      ;  ... = 0xf0
 </code></pre>
 <p>The <code>bf</code> command is used to change the block size to value specified by a flag. For example, in symbols, the block size of the flag represents the size of the function.</p>
 <pre><code>[0x00000000]&gt; bf sym.main    ; block size = sizeof(sym.main)
