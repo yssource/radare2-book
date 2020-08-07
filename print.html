@@ -964,7 +964,21 @@ It is quite simple to add new architectures for disassembling and analyzing code
 <h3><a class="header" href="#asmsyntax" id="asmsyntax">asm.syntax</a></h3>
 <p>Changes syntax flavor for disassembler between Intel and AT&amp;T. At the moment, this setting affects Udis86 disassembler for Intel 32/Intel 64 targets only. Supported values are <code>intel</code> and <code>att</code>.</p>
 <h3><a class="header" href="#asmpseudo" id="asmpseudo">asm.pseudo</a></h3>
-<p>A boolean value to choose a string disassembly engine. &quot;False&quot; indicates a native one, defined by the current architecture, &quot;true&quot; activates a pseudocode strings format; for example, it will show <code>eax=ebx</code> instead of a <code>mov eax, ebx</code>.</p>
+<p>A boolean value to set the psuedo syntax in the disassembly. &quot;False&quot; indicates a native one, defined by the current architecture, &quot;true&quot; activates a pseudocode strings format. For example, it'll transform :</p>
+<pre><code>│           0x080483ff      e832000000     call 0x8048436
+│           0x08048404      31c0           xor eax, eax
+│           0x08048406      0205849a0408   add al, byte [0x8049a84]
+│           0x0804840c      83f800         cmp eax, 0
+│           0x0804840f      7405           je 0x8048416
+</code></pre>
+<p>to</p>
+<pre><code>│           0x080483ff      e832000000     0x8048436 ()
+│           0x08048404      31c0           eax = 0
+│           0x08048406      0205849a0408   al += byte [0x8049a84]
+│           0x0804840c      83f800         var = eax - 0
+│           0x0804840f      7405           if (!var) goto 0x8048416
+</code></pre>
+<p>It can be useful while disassembling obscure architectures.</p>
 <h3><a class="header" href="#asmos" id="asmos">asm.os</a></h3>
 <p>Selects a target operating system of currently loaded binary. Usually, OS is automatically detected by <code>rabin -rI</code>. Yet, <code>asm.os</code> can be used to switch to a different syscall table employed by another OS.</p>
 <h3><a class="header" href="#asmflags" id="asmflags">asm.flags</a></h3>
@@ -1028,10 +1042,16 @@ It is quite simple to add new architectures for disassembling and analyzing code
 <p>This variable specifies the mode for colorized screen output: &quot;false&quot; (or 0) means no colors, &quot;true&quot; (or 1) means 16-colors mode, 2 means 256-colors mode, 3 means 16 million-colors mode. If your favorite theme looks weird, try to bump this up.</p>
 <h3><a class="header" href="#scrseek" id="scrseek">scr.seek</a></h3>
 <p>This variable accepts a full-featured expression or a pointer/flag (eg. eip). If set, radare will set seek position to its value on startup.</p>
+<h3><a class="header" href="#scrscrollbar" id="scrscrollbar">scr.scrollbar</a></h3>
+<p>If you have set up any <a href="http://book.rada.re/basic_commands/flags.html#flag-zones">flagzones</a> (<code>fz?</code>), this variable will let you display the scrollbar with the flagzones, in Visual mode. Set it to <code>1</code> to display the scrollbar at the right end, <code>2</code> for the top and <code>3</code> to display it at the bottom.</p>
+<h3><a class="header" href="#scrutf8" id="scrutf8">scr.utf8</a></h3>
+<p>A boolen variable to show UTF-8 characters instead of ANSI.</p>
 <h3><a class="header" href="#cfgfortunes" id="cfgfortunes">cfg.fortunes</a></h3>
 <p>Enables or disables &quot;fortune&quot; messages displayed at each radare start.</p>
 <h3><a class="header" href="#cfgfortunestype" id="cfgfortunestype">cfg.fortunes.type</a></h3>
 <p>Fortunes are classified by type. This variable determines which types are allowed for displaying when <code>cfg.fortunes</code> is <code>true</code>, so they can be fine-tuned on what's appropriate for the intended audience. Current types are <code>tips</code>, <code>fun</code>, <code>nsfw</code>, <code>creepy</code>.</p>
+<h3><a class="header" href="#stacksize" id="stacksize">stack.size</a></h3>
+<p>This variable lets you set the size of stack in bytes.</p>
 <h2><a class="header" href="#files" id="files">Files</a></h2>
 <p>Use <code>r2 -H</code> to list all the environment variables that matter to know where it will
 be looking for files. Those paths depend on the way (and operating system) you have
@@ -3441,6 +3461,14 @@ it was referenced from, we should use <code>axt</code>:</p>
 sub.strlen_d50 0x5de0 [STRING] lea rcx, str.02x
 (nofunc) 0x17838 [CODE] jae str.02x
 </code></pre>
+<p>There are also some useful commands under <code>axt</code>. Use <code>axtg</code> to generate radare2 commands which will help you to create graphs according to the XREFs.</p>
+<pre><code>[0x08048320]&gt; s main
+[0x080483e0]&gt; axtg
+agn 0x8048337 &quot;entry0 + 23&quot;
+agn 0x80483e0 &quot;main&quot;
+age 0x8048337 0x80483e0
+</code></pre>
+<p>Use <code>axt*</code> to split the radare2 commands and set flags on those corresponding XREFs.</p>
 <p>Apart from predefined algorithms to identify functions there is a way to specify
 a function prelude with a configuration option <code>anal.prelude</code>. For example, like
 <code>e anal.prelude = 0x554889e5</code> which means</p>

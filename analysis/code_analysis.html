@@ -316,6 +316,14 @@ it was referenced from, we should use <code>axt</code>:</p>
 sub.strlen_d50 0x5de0 [STRING] lea rcx, str.02x
 (nofunc) 0x17838 [CODE] jae str.02x
 </code></pre>
+<p>There are also some useful commands under <code>axt</code>. Use <code>axtg</code> to generate radare2 commands which will help you to create graphs according to the XREFs.</p>
+<pre><code>[0x08048320]&gt; s main
+[0x080483e0]&gt; axtg
+agn 0x8048337 &quot;entry0 + 23&quot;
+agn 0x80483e0 &quot;main&quot;
+age 0x8048337 0x80483e0
+</code></pre>
+<p>Use <code>axt*</code> to split the radare2 commands and set flags on those corresponding XREFs.</p>
 <p>Apart from predefined algorithms to identify functions there is a way to specify
 a function prelude with a configuration option <code>anal.prelude</code>. For example, like
 <code>e anal.prelude = 0x554889e5</code> which means</p>
