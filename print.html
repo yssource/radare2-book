@@ -2194,14 +2194,13 @@ k anal/*
 <pre><code>k %anal/meta/[1]meta.C.0x100005000
 </code></pre>
 <h1><a class="header" href="#dietline" id="dietline">Dietline</a></h1>
-<p>Radare2 comes with the lean <a href="https://en.wikipedia.org/wiki/GNU_Readline">readline</a>-like input capability through the lean library to handle the
-command edition and history navigation. It allows users to perform cursor movements, search the
+<p>Radare2 comes with the lean <a href="https://en.wikipedia.org/wiki/GNU_Readline">readline</a>-like input capability through the lean library to handle the command edition and history navigation. It allows users to perform cursor movements, search the
 history, and implements autocompletion. Moreover, due to the radare2 portability, dietline provides
 the uniform experience among all supported platforms. It is used in all radare2 subshells - main
 prompt, SDB shell, visual prompt, and offsets prompt. It also implements the most common features
 and keybindings compatible with the GNU Readline.</p>
-<p>Dietline supports two major configuration modes - Emacs-mode, and Vi-mode. It also supports the
-famous <code>Ctrl-R</code> reverse history search. Using <code>TAB</code> key it allows to scroll through the
+<p>Dietline supports two major configuration modes : Emacs-mode and Vi-mode. </p>
+<p>It also supports the famous <code>Ctrl-R</code> reverse history search. Using <code>TAB</code> key it allows to scroll through the
 autocompletion options.</p>
 <h1><a class="header" href="#autocompletion" id="autocompletion">Autocompletion</a></h1>
 <p>In the every shell and radare2 command autocompletion is supported. There are multiple modes of it -
@@ -2210,17 +2209,23 @@ the scrollable popup widget is available. It can be enabled with <code>scr.promp
 the <code>1</code>.</p>
 <h1><a class="header" href="#emacs-default-mode" id="emacs-default-mode">Emacs (default) mode</a></h1>
 <p>By default dietline mode is compatible with readline Emacs-like mode key bindings. Thus active are:</p>
+<h2><a class="header" href="#moving" id="moving">Moving</a></h2>
 <ul>
 <li><code>Ctrl-a</code> - move to the beginning of the line</li>
 <li><code>Ctrl-e</code> - move to the end of the line</li>
-<li><code>Alt-d</code> - cuts the character after the cursor</li>
-<li><code>Ctrl-w</code> - delete the previous word</li>
 <li><code>Ctrl-b</code> - move one character backward</li>
 <li><code>Ctrl-f</code> - move one character forward</li>
+</ul>
+<h2><a class="header" href="#deleting" id="deleting">Deleting</a></h2>
+<ul>
+<li><code>Ctrl-w</code> - delete the previous word</li>
 <li><code>Ctrl-u</code> - delete the whole line</li>
-<li><code>Ctrl-r</code> - the reverse search in the command history</li>
 <li><code>Ctrl-h</code> - delete a character to the left</li>
 <li><code>Ctrl-d</code> - delete a character to the right</li>
+<li><code>Alt-d</code> - cuts the character after the cursor</li>
+</ul>
+<h2><a class="header" href="#killing-and-yanking" id="killing-and-yanking">Killing and Yanking</a></h2>
+<ul>
 <li><code>Ctrl-k</code> - kill the text from point to the end of the line.</li>
 <li><code>Ctrl-x</code> - kill backward from the cursor to the beginning of the current line.</li>
 <li><code>Ctrl-t</code> - kill from point to the end of the current word, or if between words, to the end of the next word. Word boundaries are the same as forward-word.</li>
@@ -2228,24 +2233,36 @@ the <code>1</code>.</p>
 <li><code>Ctrl-y</code> - yank the top of the kill ring into the buffer at point.</li>
 <li><code>Ctrl-]</code> - rotate the kill-ring, and yank the new top. You can only do this if the prior command is yank or yank-pop.</li>
 </ul>
+<h2><a class="header" href="#history-1" id="history-1">History</a></h2>
+<ul>
+<li><code>Ctrl-r</code> - the reverse search in the command history</li>
+</ul>
 <h1><a class="header" href="#vi-mode" id="vi-mode">Vi mode</a></h1>
 <p>Radare2 also comes with in vi mode that can be enabled by toggling <code>scr.prompt.vi</code>. The various keybindings available in this mode are:</p>
+<h2><a class="header" href="#entering-command-modes" id="entering-command-modes">Entering command modes</a></h2>
 <ul>
 <li><code>ESC</code> - enter into the control mode</li>
 <li><code>i</code> - enter into the insert mode</li>
+</ul>
+<h2><a class="header" href="#moving-1" id="moving-1">Moving</a></h2>
+<ul>
+<li><code>j</code> - acts like up arrow key</li>
+<li><code>k</code> - acts like down arrow key</li>
 <li><code>a</code> - move cursor forward and enter into insert mode</li>
 <li><code>I</code> - move to the beginning of the line and enter into insert mode</li>
 <li><code>A</code> - move to the end of the line and enter into insert mode</li>
 <li><code>^</code> - move to the beginning of the line</li>
 <li><code>0</code> - move to the beginning of the line</li>
 <li><code>$</code> - move to the end of the line</li>
-<li><code>x</code> - cuts the character</li>
-<li><code>dw</code> - delete the current word</li>
-<li><code>db</code> - delete the previous word</li>
 <li><code>h</code> - move one character backward</li>
 <li><code>l</code> - move one character forward</li>
-<li><code>j</code> - acts like up arrow key</li>
-<li><code>k</code> - acts like down arrow key</li>
+</ul>
+<h2><a class="header" href="#deleting-and-yanking" id="deleting-and-yanking">Deleting and Yanking</a></h2>
+<ul>
+<li><code>x</code> - cuts the character</li>
+<li><code>dw</code> - delete the current word</li>
+<li><code>diw</code> - deletes the current word.</li>
+<li><code>db</code> - delete the previous word</li>
 <li><code>D</code> - delete the whole line</li>
 <li><code>dh</code> - delete a character to the left</li>
 <li><code>dl</code> - delete a character to the right</li>
@@ -2253,9 +2270,7 @@ the <code>1</code>.</p>
 <li><code>d^</code> - kill backward from the cursor to the beginning of the current line.</li>
 <li><code>de</code> - kill from point to the end of the current word, or if between words, to the end of the next word. Word boundaries are the same as forward-word.</li>
 <li><code>p</code> - yank the top of the kill ring into the buffer at point.</li>
-<li><code>diw</code> - deletes the current word.</li>
-<li><code>c</code> - acts similar to d based commands, but goes into insert mode in the end
-By prefixing the commands with numbers, the command is performed multiple times. </li>
+<li><code>c</code> - acts similar to d based commands, but goes into insert mode in the end by prefixing the commands with numbers, the command is performed multiple times.</li>
 </ul>
 <p>If you are finding it hard to keep track of which mode you are in, just set <code>scr.prompt.mode=true</code> to update the color of the prompt based on the vi-mode.</p>
 <h1><a class="header" href="#visual-mode" id="visual-mode">Visual Mode</a></h1>
