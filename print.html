@@ -5808,7 +5808,7 @@ hit breakpoint at: 55ca23a4a518
 22 0x0002af75   215 0x00000000   215 ---- ld-2.27.so..shstrtab
 </code></pre>
 <h1><a class="header" href="#heap" id="heap">Heap</a></h1>
-<p>radare2's <code>dm</code> subcommands can also display a map of the heap which is useful for those who are interesting in inspecting the heap and its content. Simply execute <code>dmh</code> to show a map of the heap:</p>
+<p>radare2's <code>dm</code> subcommands can also display a map of the heap which is useful for those who are interested in inspecting the heap and its content. Simply execute <code>dmh</code> to show a map of the heap:</p>
 <pre><code>[0x7fae46236ca6]&gt; dmh
   Malloc chunk @ 0x55a7ecbce250 [size: 0x411][allocated]
   Top chunk @ 0x55a7ecbce660 - [brk_start: 0x55a7ecbce000, brk_end: 0x55a7ecbef000]
@@ -5859,6 +5859,7 @@ Heap Layout
 | dmht                Display all parsed thead cache bins of main_arena's tcache instance
 | dmh?                Show map heap help
 </code></pre>
+<p>To print safe-linked lists (glibc &gt;= 2.32) with demangled pointers, the variable <code>dbg.glibc.demangle</code> must be true.</p>
 <h1><a class="header" href="#files-1" id="files-1">Files</a></h1>
 <p>The radare2 debugger allows the user to list and manipulate the file descriptors from the target process.</p>
 <p>This is a useful feature, which is not found in other debuggers, the functionality is similar to the lsof command line tool, but have extra subcommands to change the seek, close or duplicate them.</p>

@@ -148,7 +148,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#heap" id="heap">Heap</a></h1>
-<p>radare2's <code>dm</code> subcommands can also display a map of the heap which is useful for those who are interesting in inspecting the heap and its content. Simply execute <code>dmh</code> to show a map of the heap:</p>
+<p>radare2's <code>dm</code> subcommands can also display a map of the heap which is useful for those who are interested in inspecting the heap and its content. Simply execute <code>dmh</code> to show a map of the heap:</p>
 <pre><code>[0x7fae46236ca6]&gt; dmh
   Malloc chunk @ 0x55a7ecbce250 [size: 0x411][allocated]
   Top chunk @ 0x55a7ecbce660 - [brk_start: 0x55a7ecbce000, brk_end: 0x55a7ecbef000]
@@ -199,6 +199,7 @@ Heap Layout
 | dmht                Display all parsed thead cache bins of main_arena's tcache instance
 | dmh?                Show map heap help
 </code></pre>
+<p>To print safe-linked lists (glibc &gt;= 2.32) with demangled pointers, the variable <code>dbg.glibc.demangle</code> must be true.</p>
 
                     </main>
 
