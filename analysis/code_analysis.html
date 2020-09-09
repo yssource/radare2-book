@@ -214,6 +214,7 @@ radare2 provides separate commands for the particular stages of the analysis all
 control of the analysis process. Moreover, there is a treasure trove of configuration variables
 for controlling the analysis outcomes. You can find them in <code>anal.*</code> and <code>emu.*</code>
 cfg variables' namespaces.</p>
+<h2><a class="header" href="#analyze-functions" id="analyze-functions">Analyze functions</a></h2>
 <p>One of the most important &quot;basic&quot; analysis commands is the set of <code>af</code> subcommands. <code>af</code> means
 &quot;analyze function&quot;. Using this command you can either allow automatic analysis of the particular
 function or perform completely manual one.</p>
@@ -248,6 +249,10 @@ function or perform completely manual one.</p>
 | afv[absrx]?               manipulate args, registers and variables in function
 | afx                      list function references
 </code></pre>
+<p>You can use <code>afl</code> to list the functions found by the analysis.</p>
+<p>There are a lot of useful commands under <code>afl</code> such as <code>aflj</code>, which lists the function in JSON format and <code>aflm</code>, which lists the functions in the syntax found in makefiles.</p>
+<p>There's also <code>afl=</code>, which displays ASCII-art bars with function ranges.</p>
+<p>You can find the rest of them under <code>afl?</code>.</p>
 <p>Some of the most challenging tasks while performing a function analysis are merge, crop and resize.
 As with other analysis commands you have two modes: semi-automatic and manual.
 For the semi-automatic, you can use <code>afm &lt;function name&gt;</code> to merge the current function with
