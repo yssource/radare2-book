@@ -238,8 +238,8 @@ fn main() {
   let mut r2p = open_pipe!(Some(&quot;/bin/ls&quot;)).unwrap();
   println!(&quot;{:?}&quot;, r2p.cmd(&quot;?e Hello World&quot;));
   let json = r2p.cmdj(&quot;ij&quot;).unwrap();
-  println!(&quot;{}&quot;, json.pretty());
-  println!(&quot;ARCH {}&quot;, json.find_path(&amp;[&quot;bin&quot;,&quot;arch&quot;]).unwrap());
+  println!(&quot;{}&quot;, serde_json::to_string_pretty(&amp;json).unwrap());
+  println!(&quot;ARCH {}&quot;, json[&quot;bin&quot;][&quot;arch&quot;]);
   r2p.close();
 }
 </code></pre></pre>
