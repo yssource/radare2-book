@@ -6872,7 +6872,7 @@ Graph Output formats: (-m [mode])
   i          Interactive ascii art
 </code></pre>
 <h1><a class="header" href="#binary-diffing" id="binary-diffing">Binary Diffing</a></h1>
-<p>This section is based on the http://radare.today article &quot;<a href="http://radare.today/binary-diffing/">binary diffing</a>&quot;</p>
+<p>This section is based on the http://radare.today article &quot;<a href="https://radareorg.github.io/blog/posts/binary-diffing/">binary diffing</a>&quot;</p>
 <p>Without any parameters, <code>radiff2</code> by default shows what bytes are changed and their corresponding offsets:</p>
 <pre><code>$ radiff2 genuine cracked
 0x000081e0 85c00f94c0 =&gt; 9090909090 0x000081e0
@@ -6921,9 +6921,9 @@ And we can specify binaries architecture for this analysis too using</p>
                      sub.setlocale_fa0   64 0x3fa0 | UNMATCH  (0.104651) | 0x3fb0    64 sub.setlocale_fb0
                           fcn.00003a50  120 0x3a50 | UNMATCH  (0.125000) | 0x3a60   120 fcn.00003a60
 </code></pre>
-<p>And now a cool feature : radare2 supports graph-diffing, à la <a href="http://www.darungrim.org/">DarunGrim</a>, with the <code>-g</code> option. You can either give it a symbol name, of specify two offsets, if the function you want to diff is named differently in compared files. For example, <code>radiff2 -g main /bin/true /bin/false | xdot -</code> will show differences in <code>main()</code> function of Unix <code>true</code> and <code>false</code> programs. You can compare it to <code>radiff2 -g main /bin/false /bin/true</code> (Notice the order of the arguments) to get the two versions.
+<p>And now a cool feature : radare2 supports graph-diffing, à la <a href="http://www.darungrim.org/">DarunGrim</a>, with the <code>-g</code> option. You can either give it a symbol name, of specify two offsets, if the function you want to diff is named differently in compared files. For example, <code>radiff2 -md -g main /bin/true /bin/false | xdot -</code> will show differences in <code>main()</code> function of Unix <code>true</code> and <code>false</code> programs. You can compare it to <code>radiff2 -md -g main /bin/false /bin/true | xdot -</code> (Notice the order of the arguments) to get the two versions.
 This is the result:</p>
-<p><img src="tools/radiff2/../pics/true_false.png" alt="/bin/true vs /bin/false" /></p>
+<p><img src="tools/radiff2/img/true_false.png" alt="/bin/true vs /bin/false" /></p>
 <p>Parts in yellow indicate that some offsets do not match. The grey piece means a perfect match. The red one highlights a strong difference. If you look closely, you will see that the left part of the picture has <code>mov edi, 0x1; call sym.imp.exit</code>, while the right one has <code>xor edi, edi; call sym.imp.exit</code>.</p>
 <p>Binary diffing is an important feature for reverse engineering. It can be used to analyze <a href="https://en.wikipedia.org/wiki/Patch_Tuesday">security updates</a>, infected binaries, firmware changes and more...</p>
 <p>We have only shown the code analysis diffing functionality, but radare2 supports additional types of diffing between two binaries: at byte level, deltified similarities, and more to come.</p>
