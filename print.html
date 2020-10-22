@@ -2969,7 +2969,7 @@ in disassembly, link datasheets or related articles.</p>
 The aim is to be able to express most of the common operations performed by CPUs, like binary arithmetic operations, memory loads and stores, processing syscalls. This way if we can transform the instructions to ESIL we can see what a program does while it is running even for the most cryptic architectures you definitely don't have a device to debug on for.</p>
 <h2><a class="header" href="#using-esil" id="using-esil">Using ESIL</a></h2>
 <p>r2's visual mode is great to inspect the ESIL evaluations.</p>
-<p>There are 2 environment variables that are important for watching what a program does:</p>
+<p>There are 3 environment variables that are important for watching what a program does:</p>
 <pre><code>[0x00000000]&gt; e emu.str = true
 </code></pre>
 <p><code>asm.emu</code> tells r2 if you want ESIL information to be displayed. If it is set to true, you will see comments appear to the right of your disassembly that tell you how the contents of registers and memory addresses are changed by the current instruction. For example, if you have an instruction that subtracts a value from a register it tells you what the value was before and what it becomes after. This is super useful so you don't have to sit there yourself and track which value goes where.</p>
@@ -3146,7 +3146,7 @@ equalsTo(&quot;&quot;)    -&gt; empty string, aka nop (wrong, if we append pc+=x
 <li>Is syscall</li>
 </ul>
 <h3><a class="header" href="#cpu-flags" id="cpu-flags">CPU Flags</a></h3>
-<p>CPU flags are usually defined as single bit registers in the RReg profile. They and sometimes found under the 'flg' register type.</p>
+<p>CPU flags are usually defined as single bit registers in the RReg profile. They are sometimes found under the 'flg' register type.</p>
 <h3><a class="header" href="#variables" id="variables">Variables</a></h3>
 <p>Properties of the VM variables:</p>
 <ol>
@@ -4417,9 +4417,7 @@ Commands interface for ESIL VM is almost identical to the debugging one:</p>
 <li><code>aesi</code> to step over the function calls</li>
 <li><code>aesu &lt;address&gt;</code> to step until some specified address</li>
 <li><code>aesue &lt;ESIL expression&gt;</code> to step until some specified ESIL expression met</li>
-<li><code>aec</code> to continue until break (Ctrl-C), this one is rarely used though, due to the omnipresence
-of external calls</li>
-<li><code>aecu &lt;address&gt;</code> to continue until some specified address</li>
+<li><code>aec</code> to continue until break (Ctrl-C), this one is rarely used though, due to the omnipresence of external calls</li>
 </ul>
 <p>In visual mode, all of the debugging hotkeys will work also in ESIL emulation mode.</p>
 <p>Along with usual emulation, there is a possibility to record and replay mode:</p>
