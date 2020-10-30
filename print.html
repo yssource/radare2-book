@@ -2572,6 +2572,15 @@ You can also press <code>&quot;</code> to quickly browse through the different o
 <p>By default you will have one tab and you can press <code>t</code> to create a new tab with the same panels and <code>T</code> to create a new panel from scratch.</p>
 <p>For traversing through the tabs, you can type in the tab number while in Tab Mode.</p>
 <p>And pressing <code>-</code> deletes the tab you are in.</p>
+<h2><a class="header" href="#saving-layouts" id="saving-layouts">Saving layouts</a></h2>
+<p>You can save your custom layout of your visual panels either by picking the option 'Save Layout' from the File menu of the menu bar or by running:</p>
+<pre><code>v= test
+</code></pre>
+<p>Where <code>test</code> is the name with which you'd like to save it.</p>
+<p>You can open a saved layout by passing the name as the parameter to <code>v</code>:</p>
+<pre><code>v test
+</code></pre>
+<p>More about that can be found under <code>v?</code>.</p>
 <h1><a class="header" href="#searching-for-bytes" id="searching-for-bytes">Searching for Bytes</a></h1>
 <p>The radare2 search engine is based on work done by esteve, plus multiple features implemented on top of it. It supports multiple keyword searches, binary masks, and hexadecimal values. It automatically creates flags for search hit locations ease future referencing.</p>
 <p>Search is initiated by <code>/</code> command.</p>
