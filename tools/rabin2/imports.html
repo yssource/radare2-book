@@ -151,6 +151,8 @@
 <p>Rabin2 is able to find imported objects by an executable, as well as their offsets in its PLT. This information is useful, for example, to understand what external function is invoked by <code>call</code> instruction. Pass <code>-i</code> flag to rabin2 to get a list of imports. An example:</p>
 <pre><code>$ rabin2 -i /bin/ls
 [Imports]
+nth vaddr      bind   type   lib name
+―――――――――――――――――――――――――――――――――――――
    1 0x000032e0  GLOBAL    FUNC __ctype_toupper_loc
    2 0x000032f0  GLOBAL    FUNC getenv
    3 0x00003300  GLOBAL    FUNC sigprocmask

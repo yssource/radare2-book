@@ -199,8 +199,8 @@ And we can specify binaries architecture for this analysis too using</p>
 </code></pre>
 <p>And now a cool feature : radare2 supports graph-diffing, à la <a href="http://www.darungrim.org/">DarunGrim</a>, with the <code>-g</code> option. You can either give it a symbol name, of specify two offsets, if the function you want to diff is named differently in compared files. For example, <code>radiff2 -md -g main /bin/true /bin/false | xdot -</code> will show differences in <code>main()</code> function of Unix <code>true</code> and <code>false</code> programs. You can compare it to <code>radiff2 -md -g main /bin/false /bin/true | xdot -</code> (Notice the order of the arguments) to get the two versions.
 This is the result:</p>
-<p><img src="img/true_false.png" alt="/bin/true vs /bin/false" /></p>
-<p>Parts in yellow indicate that some offsets do not match. The grey piece means a perfect match. The red one highlights a strong difference. If you look closely, you will see that the left part of the picture has <code>mov edi, 0x1; call sym.imp.exit</code>, while the right one has <code>xor edi, edi; call sym.imp.exit</code>.</p>
+<p><img src="img/true_false2.png" alt="/bin/true vs /bin/false" /></p>
+<p>Parts in yellow indicate that some offsets do not match. The grey piece means a perfect match. The orange one highlights a strong difference. If you look closely, you will see that the left part of the picture has <code>mov eax, 0x1; pop rbx; pop rbp; ret</code>, while the right one has <code>xor edx, edx; pop rbx; pop rbp; ret</code>.</p>
 <p>Binary diffing is an important feature for reverse engineering. It can be used to analyze <a href="https://en.wikipedia.org/wiki/Patch_Tuesday">security updates</a>, infected binaries, firmware changes and more...</p>
 <p>We have only shown the code analysis diffing functionality, but radare2 supports additional types of diffing between two binaries: at byte level, deltified similarities, and more to come.</p>
 <p>We have plans to implement more kinds of bindiffing algorithms into r2, and why not, add support for ASCII art graph diffing and better integration with the rest of the toolkit.</p>

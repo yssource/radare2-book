@@ -2206,7 +2206,7 @@ autocompletion options.</p>
 <p>In the every shell and radare2 command autocompletion is supported. There are multiple modes of it -
 files, flags, and SDB keys/namespaces. To provide the easy way to select possible completion options
 the scrollable popup widget is available. It can be enabled with <code>scr.prompt.popup</code>, just set it to
-the <code>1</code>.</p>
+the <code>true</code>.</p>
 <h1><a class="header" href="#emacs-default-mode" id="emacs-default-mode">Emacs (default) mode</a></h1>
 <p>By default dietline mode is compatible with readline Emacs-like mode key bindings. Thus active are:</p>
 <h2><a class="header" href="#moving" id="moving">Moving</a></h2>
@@ -4960,10 +4960,14 @@ diff: type: new
 [0x004047d6]&gt;
 </code></pre>
 <p>Now let's say, for example, that we'd like see a particular field from this output for all functions found by analysis. We can do that with a loop over all function flags (whose names begin with <code>fcn.</code>):</p>
-<pre><code>[0x004047d6]&gt; afi @@ fcn.* ~name
+<pre><code>[0x004047d6]&gt; fs functions
+[0x004047d6]&gt; afi @@ fcn.* ~name
 </code></pre>
 <p>This command will extract the <code>name</code> field from the <code>afi</code> output of every flag with a name
-matching the regexp <code>fcn.*</code>.</p>
+matching the regexp <code>fcn.*</code>.
+There are also a predefined loop called <code>@@f</code>, which runs your command on every functions found by r2:</p>
+<pre><code>[0x004047d6]&gt; afi @@f ~name
+</code></pre>
 <p>We can also loop over a list of offsets, using the following syntax:</p>
 <pre><code>@@=1 2 3 ... N
 </code></pre>
@@ -5127,9 +5131,39 @@ simple scripting situations. To create a macro that takes arguments you simply a
 <pre><code>[0x00404800]&gt; $disas @ main
 </code></pre>
 <p>Apart from commands, you can also alias a text to be printed, when called.</p>
-<pre><code>[0x00404800]&gt; $my_alias = $test input
+<pre><code>[0x00404800]&gt; $my_alias=$test input
 [0x00404800]&gt; $my_alias
 test input
+</code></pre>
+<p>To undefine alias, use <code>$alias=</code>:</p>
+<pre><code>[0x00404800]&gt; $pmore='b 300;px'
+[0x00404800]&gt; $
+$pmore
+[0x00404800]&gt; $
+
+</code></pre>
+<p>A single <code>$</code> in the above will list all defined aliases. It's also possible check the aliased command of an alias:</p>
+<pre><code>[0x00404800]&gt; $pmore?
+b 200; px
+</code></pre>
+<p>Can we create an alias contains alias ? The answer is yes:</p>
+<pre><code>[0x00404800]&gt; $pStart='s 0x0;$pmore'
+[0x00404800]&gt; $pStart
+- offset -   0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  7f45 4c46 0201 0100 0000 0000 0000 0000  .ELF............
+0x00000010  0300 3e00 0100 0000 1014 0000 0000 0000  ..&gt;.............
+0x00000020  4000 0000 0000 0000 5031 0000 0000 0000  @.......P1......
+0x00000030  0000 0000 4000 3800 0d00 4000 1e00 1d00  ....@.8...@.....
+0x00000040  0600 0000 0400 0000 4000 0000 0000 0000  ........@.......
+0x00000050  4000 0000 0000 0000 4000 0000 0000 0000  @.......@.......
+0x00000060  d802 0000 0000 0000 d802 0000 0000 0000  ................
+0x00000070  0800 0000 0000 0000 0300 0000 0400 0000  ................
+0x00000080  1803 0000 0000 0000 1803 0000 0000 0000  ................
+0x00000090  1803 0000 0000 0000 1c00 0000 0000 0000  ................
+0x000000a0  1c00 0000 0000 0000 0100 0000 0000 0000  ................
+0x000000b0  0100 0000 0400 0000 0000 0000 0000 0000  ................
+0x000000c0  0000 0000 0000 0000                      ........
+[0x00000000]&gt; 
 </code></pre>
 <h1><a class="header" href="#r2pipe" id="r2pipe">R2pipe</a></h1>
 <p>The r2pipe api was initially designed for NodeJS in order to support reusing the web's r2.js API from the commandline. The r2pipe module permits interacting with r2 instances in different methods:</p>
@@ -6629,6 +6663,8 @@ s entry0
 <p>Rabin2 is able to find imported objects by an executable, as well as their offsets in its PLT. This information is useful, for example, to understand what external function is invoked by <code>call</code> instruction. Pass <code>-i</code> flag to rabin2 to get a list of imports. An example:</p>
 <pre><code>$ rabin2 -i /bin/ls
 [Imports]
+nth vaddr      bind   type   lib name
+―――――――――――――――――――――――――――――――――――――
    1 0x000032e0  GLOBAL    FUNC __ctype_toupper_loc
    2 0x000032f0  GLOBAL    FUNC getenv
    3 0x00003300  GLOBAL    FUNC sigprocmask
@@ -6657,6 +6693,9 @@ s entry0
 <p>Rabin2 is able to find exports. For example:</p>
 <pre><code>$ rabin2 -E /usr/lib/libr_bin.so | head
 [Exports]
+
+nth  paddr       vaddr      bind   type size lib name
+―――――――――――――――――――――――――――――――――――――――――――――――――――――
 210 0x000ae1f0 0x000ae1f0 GLOBAL   FUNC  200 r_bin_java_print_exceptions_attr_summary
 211 0x000afc90 0x000afc90 GLOBAL   FUNC  135 r_bin_java_get_args
 212 0x000b18e0 0x000b18e0 GLOBAL   FUNC   35 r_bin_java_get_item_desc_from_bin_cp_list
@@ -6671,6 +6710,9 @@ s entry0
 <p>With rabin2, the generated symbols list format is similar to the imports list. Use the <code>-s</code> option to get it:</p>
 <pre><code>rabin2 -s /bin/ls | head
 [Symbols]
+
+nth paddr       vaddr      bind   type   size lib name
+――――――――――――――――――――――――――――――――――――――――――――――――――――――
 110 0x000150a0 0x000150a0 GLOBAL FUNC 56 _obstack_allocated_p
 111 0x0001f600 0x0021f600 GLOBAL  OBJ  8 program_name
 112 0x0001f620 0x0021f620 GLOBAL  OBJ  8 stderr
@@ -6762,6 +6804,9 @@ libz.so.1 =&gt; /lib64/libz.so.1 (0x00007f94af2e8000)
 <h2><a class="header" href="#strings-1" id="strings-1">Strings</a></h2>
 <p>The <code>-z</code> option is used to list readable strings found in the .rodata section of ELF binaries, or the .text section of PE files. Example:</p>
 <pre><code>$ rabin2 -z /bin/ls | head
+[Strings]
+nth paddr      vaddr      len size section type  string
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――
 000 0x000160f8 0x000160f8  11  12 (.rodata) ascii dev_ino_pop
 001 0x00016188 0x00016188  10  11 (.rodata) ascii sort_files
 002 0x00016193 0x00016193   6   7 (.rodata) ascii posix-
@@ -6791,6 +6836,9 @@ Cs 11 @ 0x00016250
 <p>Rabin2 called with the <code>-S</code> option gives complete information about the sections of an executable. For each section the index, offset, size, alignment, type and permissions, are shown. The next example demonstrates this:</p>
 <pre><code>$ rabin2 -S /bin/ls
 [Sections]
+
+nth paddr          size vaddr         vsize perm name
+―――――――――――――――――――――――――――――――――――――――――――――――――――――
 00 0x00000000     0 0x00000000     0 ----
 01 0x00000238    28 0x00000238    28 -r-- .interp
 02 0x00000254    32 0x00000254    32 -r-- .note.ABI_tag
@@ -6822,15 +6870,15 @@ Cs 11 @ 0x00016250
 <p>With the <code>-Sr</code> option, rabin2 will flag the start/end of every section, and will pass the rest of information as a comment.</p>
 <pre><code>$ rabin2 -Sr /bin/ls | head
 fs sections
-S 0x00000000 0x00000000 0x00000000 0x00000000  0
-f section. 0 0x00000000
-f section_end. 1 0x00000000
-CC section 0 va=0x00000000 pa=0x00000000 sz=0 vsz=0 rwx=----  @ 0x00000000
-S 0x00000238 0x00000238 0x0000001c 0x0000001c .interp 4
-f section..interp 28 0x00000238
-f section_end..interp 1 0x00000254
-CC section 1 va=0x00000238 pa=0x00000238 sz=28 vsz=28 rwx=-r-- .interp @ 0x00000238
-S 0x00000254 0x00000254 0x00000020 0x00000020 .note.ABI_tag 4
+&quot;f section. 1 0x00000000&quot;
+&quot;f section..interp 1 0x000002a8&quot;
+&quot;f section..note.gnu.build_id 1 0x000002c4&quot;
+&quot;f section..note.ABI_tag 1 0x000002e8&quot;
+&quot;f section..gnu.hash 1 0x00000308&quot;
+&quot;f section..dynsym 1 0x000003b8&quot;
+&quot;f section..dynstr 1 0x00000fb8&quot;
+&quot;f section..gnu.version 1 0x00001574&quot;
+&quot;f section..gnu.version_r 1 0x00001678&quot;
 </code></pre>
 <h1><a class="header" href="#radiff2-1" id="radiff2-1">Radiff2</a></h1>
 <p>Radiff2 is a tool designed to compare binary files, similar to how regular <code>diff</code> compares text files.</p>
@@ -6931,8 +6979,8 @@ And we can specify binaries architecture for this analysis too using</p>
 </code></pre>
 <p>And now a cool feature : radare2 supports graph-diffing, à la <a href="http://www.darungrim.org/">DarunGrim</a>, with the <code>-g</code> option. You can either give it a symbol name, of specify two offsets, if the function you want to diff is named differently in compared files. For example, <code>radiff2 -md -g main /bin/true /bin/false | xdot -</code> will show differences in <code>main()</code> function of Unix <code>true</code> and <code>false</code> programs. You can compare it to <code>radiff2 -md -g main /bin/false /bin/true | xdot -</code> (Notice the order of the arguments) to get the two versions.
 This is the result:</p>
-<p><img src="tools/radiff2/img/true_false.png" alt="/bin/true vs /bin/false" /></p>
-<p>Parts in yellow indicate that some offsets do not match. The grey piece means a perfect match. The red one highlights a strong difference. If you look closely, you will see that the left part of the picture has <code>mov edi, 0x1; call sym.imp.exit</code>, while the right one has <code>xor edi, edi; call sym.imp.exit</code>.</p>
+<p><img src="tools/radiff2/img/true_false2.png" alt="/bin/true vs /bin/false" /></p>
+<p>Parts in yellow indicate that some offsets do not match. The grey piece means a perfect match. The orange one highlights a strong difference. If you look closely, you will see that the left part of the picture has <code>mov eax, 0x1; pop rbx; pop rbp; ret</code>, while the right one has <code>xor edx, edx; pop rbx; pop rbp; ret</code>.</p>
 <p>Binary diffing is an important feature for reverse engineering. It can be used to analyze <a href="https://en.wikipedia.org/wiki/Patch_Tuesday">security updates</a>, infected binaries, firmware changes and more...</p>
 <p>We have only shown the code analysis diffing functionality, but radare2 supports additional types of diffing between two binaries: at byte level, deltified similarities, and more to come.</p>
 <p>We have plans to implement more kinds of bindiffing algorithms into r2, and why not, add support for ASCII art graph diffing and better integration with the rest of the toolkit.</p>
