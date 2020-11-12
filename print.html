@@ -984,8 +984,8 @@ It is quite simple to add new architectures for disassembling and analyzing code
 <h3><a class="header" href="#asmflags" id="asmflags">asm.flags</a></h3>
 <p>If defined to &quot;true&quot;, disassembler view will have flags column.</p>
 <h3><a class="header" href="#asmlinescall" id="asmlinescall">asm.lines.call</a></h3>
-<p>If set to &quot;true&quot;, draw lines at the left of the disassemble output (<code>pd</code>, <code>pD</code> commands) to graphically represent control flow changes (jumps and calls) that are targeted inside current block. Also, see <code>asm.linesout</code>.</p>
-<h3><a class="header" href="#asmlinesout" id="asmlinesout">asm.linesout</a></h3>
+<p>If set to &quot;true&quot;, draw lines at the left of the disassemble output (<code>pd</code>, <code>pD</code> commands) to graphically represent control flow changes (jumps and calls) that are targeted inside current block. Also, see <code>asm.lines.out</code>.</p>
+<h3><a class="header" href="#asmlinesout" id="asmlinesout">asm.lines.out</a></h3>
 <p>When defined as &quot;true&quot;, the disassembly view will also draw control flow lines that go outside of the block.</p>
 <h3><a class="header" href="#asmlinestyle" id="asmlinestyle">asm.linestyle</a></h3>
 <p>A boolean value which changes the direction of control flow analysis. If set to &quot;false&quot;, it is done from top to bottom of a block; otherwise, it goes from bottom to top. The &quot;false&quot; setting seems to be a better choice for improved readability and is the default one.</p>
@@ -3444,6 +3444,69 @@ Before changing the basic blocks of the function it is recommended to check the 
 0x00003b92 0x00003ba8 01:0030 22 j 0x00003ba8
 0x00003ba8 0x00003bf9 00:0000 81
 </code></pre>
+<h3><a class="header" href="#hand-craft-function" id="hand-craft-function">Hand craft function</a></h3>
+<p>before start, let's prepare a binary file first, for example:</p>
+<pre><code class="language-C">int code_block()
+{
+  int result = 0;
+
+  for(int i = 0; i &lt; 10; ++i)
+    result += 1;
+
+  return result;
+}
+</code></pre>
+<p>then compile it with <code>gcc -c example.c -m32 -O0 -fno-pie</code>, we will get the object file <code>example.o</code>. open it with radare2. </p>
+<p>since we haven't analyzed it yet, the <code>pdf</code> command will not print out the disassembly here:</p>
+<pre><code>$ r2 example.o 
+[0x08000034]&gt; pdf
+p: Cannot find function at 0x08000034
+[0x08000034]&gt; pd
+            ;-- section..text:
+            ;-- .text:
+            ;-- code_block:
+            ;-- eip:
+            0x08000034      55             push ebp                    ; [01] -r-x section size 41 named .text
+            0x08000035      89e5           mov ebp, esp
+            0x08000037      83ec10         sub esp, 0x10
+            0x0800003a      c745f8000000.  mov dword [ebp - 8], 0
+            0x08000041      c745fc000000.  mov dword [ebp - 4], 0
+        ,=&lt; 0x08000048      eb08           jmp 0x8000052
+       .--&gt; 0x0800004a      8345f801       add dword [ebp - 8], 1
+       :|   0x0800004e      8345fc01       add dword [ebp - 4], 1
+       :`-&gt; 0x08000052      837dfc09       cmp dword [ebp - 4], 9
+       `==&lt; 0x08000056      7ef2           jle 0x800004a
+            0x08000058      8b45f8         mov eax, dword [ebp - 8]
+            0x0800005b      c9             leave
+            0x0800005c      c3             ret
+
+</code></pre>
+<p>our goal is to hand craft a function with the following structure</p>
+<p><img src="analysis/analyze_one.png" alt="analyze_one" /></p>
+<p>create a function at 0x8000034 named code_block:</p>
+<pre><code>[0x8000034]&gt; af+ 0x8000034 code_block
+</code></pre>
+<p>In most cases, we use jump or call instructions as code block boundaries. so the range of first block is from <code>0x08000034 push ebp</code> to <code>0x08000048 jmp 0x8000052</code>.
+use <code>afb+</code> command to add it. </p>
+<pre><code>[0x08000034]&gt; afb+ code_block 0x8000034 0x800004a-0x8000034 0x8000052
+</code></pre>
+<p>note that the basic syntax of <code>afb+</code> is <code>afb+ function_address block_address block_size [jump] [fail]</code>. the final instruction of this block points to a new address(jmp 0x8000052), thus we add the address of jump target (0x8000052) to reflect the jump info.</p>
+<p>the next block (0x08000052 ~ 0x08000056) is more likeyly an if conditional statement which has two branches. It will jump to 0x800004a if <code>jle-less or equal</code>, otherwise (the fail condition) jump to next instruction -- 0x08000058.:</p>
+<pre><code>[0x08000034]&gt; afb+ code_block 0x8000052 0x8000058-0x8000052 0x800004a 0x8000058
+</code></pre>
+<p>follow the control flow and create the remaining two blocks (two branches) :</p>
+<pre><code>[0x08000034]&gt; afb+ code_block 0x800004a 0x8000052-0x800004a 0x8000052
+[0x08000034]&gt; afb+ code_block 0x8000058 0x800005d-0x8000058
+</code></pre>
+<p>check our work:</p>
+<pre><code>[0x08000034]&gt; afb
+0x08000034 0x0800004a 00:0000 22 j 0x08000052
+0x0800004a 0x08000052 00:0000 8 j 0x08000052
+0x08000052 0x08000058 00:0000 6 j 0x0800004a f 0x08000058
+0x08000058 0x0800005d 00:0000 5
+[0x08000034]&gt; VV
+</code></pre>
+<p><img src="analysis/handcraft_one.png" alt="handcraft_one" /></p>
 <p>There are two very important commands for this: <code>afc</code> and <code>afB</code>. The latter is a must-know command for some platforms like ARM. It provides a way to change the &quot;bitness&quot; of the particular function. Basically, allowing to select between ARM and Thumb modes.</p>
 <p><code>afc</code> on the other side, allows to manually specify function calling convention. You can find more information on its usage in <a href="analysis/calling_conventions.html">calling_conventions</a>.</p>
 <h2><a class="header" href="#recursive-analysis" id="recursive-analysis">Recursive analysis</a></h2>
@@ -3583,7 +3646,7 @@ disabled to save the time and memory when analyzing big binaries.</p>
 <h3><a class="header" href="#jump-tables" id="jump-tables">Jump tables</a></h3>
 <p>Jump tables are one of the trickiest targets in binary reverse engineering. There are hundreds
 of different types, the end result depending on the compiler/linker and LTO stages of optimization.
-Thus radare2 allows enabling some experimental jump tables detection algorithms using <code>anal.jmptbl</code>
+Thus radare2 allows enabling some experimental jump tables detection algorithms using <code>anal.jmp.tbl</code>
 option. Eventually, algorithms moved into the default analysis loops once they start to work on
 every supported platform/target/testcase.
 Two more options can affect the jump tables analysis results too:</p>
@@ -3598,7 +3661,7 @@ beware that it uses partial ESIL emulation, thus slowing the analysis process. I
 like the results, particular functions' mode can be overridden with <code>afB</code> command.</p>
 <p>The MIPS GP problem is even trickier. It is a basic knowledge that GP value can be different not only
 for the whole program, but also for some functions. To partially solve that there are options
-<code>anal.gp</code> and <code>anal.gp2</code>. The first one sets the GP value for the whole program or particular
+<code>anal.gp</code> and <code>anal.gpfixed</code>. The first one sets the GP value for the whole program or particular
 function. The latter allows to &quot;constantify&quot; the GP value if some code is willing to change its
 value, always resetting it if the case. Those are heavily experimental and might be changed in the
 future in favor of more automated analysis.</p>
@@ -5139,6 +5202,7 @@ test input
 <pre><code>[0x00404800]&gt; $pmore='b 300;px'
 [0x00404800]&gt; $
 $pmore
+[0x00404800]&gt; $pmore=
 [0x00404800]&gt; $
 
 </code></pre>
