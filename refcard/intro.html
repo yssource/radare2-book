@@ -159,12 +159,12 @@ around a binary and getting information about it.</p>
 <tr><td align="left">s (tab)</td><td align="left">Seek to a different place</td></tr>
 <tr><td align="left">x [nbytes]</td><td align="left">Hexdump of nbytes, $b by default</td></tr>
 <tr><td align="left">aa</td><td align="left">Auto analyze</td></tr>
-<tr><td align="left">pdf@fcn(Tab)</td><td align="left">Disassemble function</td></tr>
+<tr><td align="left">pdf@ <a href="Tab">funcname</a></td><td align="left">Disassemble function (main, fcn, etc.)</td></tr>
 <tr><td align="left">f fcn(Tab)</td><td align="left">List functions</td></tr>
 <tr><td align="left">f str(Tab)</td><td align="left">List strings</td></tr>
 <tr><td align="left">fr [flagname] [newname]</td><td align="left">Rename flag</td></tr>
 <tr><td align="left">psz [offset]~grep</td><td align="left">Print strings and grep for one</td></tr>
-<tr><td align="left">arf [flag]</td><td align="left">Find cross reference for a flag</td></tr>
+<tr><td align="left">axF [flag]</td><td align="left">Find cross reference for a flag</td></tr>
 </tbody></table>
 <h2><a class="header" href="#flags" id="flags">Flags</a></h2>
 <p>Flags are like bookmarks, but they carry some extra information like size, tags or associated flagspace. Use the <code>f</code> command to list, set, get them.</p>
@@ -173,7 +173,7 @@ around a binary and getting information about it.</p>
 <tr><td align="left">fd $$</td><td align="left">Describe an offset</td></tr>
 <tr><td align="left">fj</td><td align="left">Display flags in JSON</td></tr>
 <tr><td align="left">fl</td><td align="left">Show flag length</td></tr>
-<tr><td align="left">fx</td><td align="left">Show hexdump of flag</td></tr>
+<tr><td align="left">fx [flagname]</td><td align="left">Show hexdump of flag</td></tr>
 <tr><td align="left">fC [name] [comment]</td><td align="left">Set flag comment</td></tr>
 </tbody></table>
 <h2><a class="header" href="#flagspaces" id="flagspaces">Flagspaces</a></h2>
@@ -183,7 +183,7 @@ you can use the <code>fs</code> command to restrict it.</p>
 <table><thead><tr><th align="left">Command</th><th align="left">Description</th></tr></thead><tbody>
 <tr><td align="left">fs</td><td align="left">Display flagspaces</td></tr>
 <tr><td align="left">fs *</td><td align="left">Select all flagspaces</td></tr>
-<tr><td align="left">fs [sections]</td><td align="left">Select one flagspace</td></tr>
+<tr><td align="left">fs [space]</td><td align="left">Select one flagspace</td></tr>
 </tbody></table>
 <h2><a class="header" href="#information" id="information">Information</a></h2>
 <p>Binary files have information stored inside the headers. The <code>i</code>
@@ -219,15 +219,16 @@ have to press keys to get the actions happen instead of commands.</p>
 <tr><td align="left">hjkl</td><td align="left">Move around (or HJKL) (left-down-up-right)</td></tr>
 <tr><td align="left">Enter</td><td align="left">Follow address of jump/call</td></tr>
 <tr><td align="left">sS</td><td align="left">Step/step over</td></tr>
-<tr><td align="left">o</td><td align="left">Go/seek to given offset</td></tr>
+<tr><td align="left">o</td><td align="left">Toggle asm.pseudo and asm.esil</td></tr>
 <tr><td align="left">.</td><td align="left">Seek to program counter</td></tr>
 <tr><td align="left">/</td><td align="left">In cursor mode, search in current block</td></tr>
 <tr><td align="left">:cmd</td><td align="left">Run radare command</td></tr>
 <tr><td align="left">;[-]cmt</td><td align="left">Add/remove comment</td></tr>
-<tr><td align="left">x+-/[]</td><td align="left">Change block size, [] = resize hex.cols</td></tr>
-<tr><td align="left">&gt;||&lt;</td><td align="left">Seek aligned to block size</td></tr>
+<tr><td align="left">/*+-[]</td><td align="left">Change block size, [] = resize hex.cols</td></tr>
+<tr><td align="left">&lt;,&gt;</td><td align="left">Seek aligned to block size</td></tr>
 <tr><td align="left">i/a/A</td><td align="left">(i)nsert hex, (a)ssemble code, visual (A)ssembler</td></tr>
-<tr><td align="left">b/B</td><td align="left">Toggle breakpoint / automatic block size</td></tr>
+<tr><td align="left">b</td><td align="left">Toggle breakpoint</td></tr>
+<tr><td align="left">B</td><td align="left">Browse evals, symbols, flags, classes, ...</td></tr>
 <tr><td align="left">d[f?]</td><td align="left">Define function, data, code, ..</td></tr>
 <tr><td align="left">D</td><td align="left">Enter visual diff mode (set diff.from/to)</td></tr>
 <tr><td align="left">e</td><td align="left">Edit eval configuration variables</td></tr>
@@ -236,17 +237,16 @@ have to press keys to get the actions happen instead of commands.</p>
 <tr><td align="left">mK/’K</td><td align="left">Mark/go to Key (any key)</td></tr>
 <tr><td align="left">M</td><td align="left">Walk the mounted filesystems</td></tr>
 <tr><td align="left">n/N</td><td align="left">Seek next/prev function/flag/hit (scr.nkey)</td></tr>
-<tr><td align="left">o</td><td align="left">Go/seek to given offset</td></tr>
 <tr><td align="left">C</td><td align="left">Toggle (C)olors</td></tr>
 <tr><td align="left">R</td><td align="left">Randomize color palette (ecr)</td></tr>
-<tr><td align="left">t</td><td align="left">Track flags (browse symbols, functions..)</td></tr>
-<tr><td align="left">T</td><td align="left">Browse anal info and comments</td></tr>
+<tr><td align="left">tT</td><td align="left">Tab related. see also <a href="visual_panels.html">tab</a></td></tr>
 <tr><td align="left">v</td><td align="left">Visual code analysis menu</td></tr>
-<tr><td align="left">V/W</td><td align="left">(V)iew graph (agv?), open (W)ebUI</td></tr>
+<tr><td align="left">V</td><td align="left">(V)iew graph (agv?)</td></tr>
+<tr><td align="left">wW</td><td align="left">Seek cursor to next/prev word</td></tr>
 <tr><td align="left">uU</td><td align="left">Undo/redo seek</td></tr>
-<tr><td align="left">x</td><td align="left">Show xrefs to seek between them</td></tr>
+<tr><td align="left">x</td><td align="left">Show xrefs of current func from/to data/code</td></tr>
 <tr><td align="left">yY</td><td align="left">Copy and paste selection</td></tr>
-<tr><td align="left">z</td><td align="left">Toggle zoom mode</td></tr>
+<tr><td align="left">z</td><td align="left">fold/unfold comments in diassembly</td></tr>
 </tbody></table>
 <h2><a class="header" href="#searching" id="searching">Searching</a></h2>
 <p>There are many situations where we need to find a value inside a binary
@@ -277,19 +277,20 @@ where the <code>/</code> command may search for the given value.</p>
 <tr><td align="left">/z min max</td><td align="left">Search for strings of given size</td></tr>
 <tr><td align="left">/v[?248] num</td><td align="left">Look for a asm.bigendian 32bit value</td></tr>
 </tbody></table>
-<h2><a class="header" href="#saving" id="saving">Saving</a></h2>
-<p>By default, when you open a file in write mode (<code>r2 -w</code>) all changes
-will be written directly into the file. No undo history is saved by
-default.</p>
-<p>Use <code>e io.cache.write=true</code> and the <code>wc</code> command to manage the <em>write cache</em>
-history changes. To undo, redo, commit them to write the changes on the file..</p>
-<p>If, instead, we want to save the analysis information, comments, flags and
-other user-created metadata, we may want to use projects with <code>r2 -p</code> and the <code>P</code> command.</p>
-<table><thead><tr><th align="left">Command</th><th align="left">Description</th></tr></thead><tbody>
-<tr><td align="left">Po [file]</td><td align="left">Open project</td></tr>
-<tr><td align="left">Ps [file]</td><td align="left">Save project</td></tr>
-<tr><td align="left">Pi [file]</td><td align="left">Show project information</td></tr>
-</tbody></table>
+<h2><a class="header" href="#saving-broken" id="saving-broken">Saving (Broken)</a></h2>
+<p>This feature has broken and not been resolved at the time of writing these words (Nov.16th 2020). check <a href="https://github.com/radareorg/radare2/issues/6945">#Issue 6945: META - Project files</a> and <a href="https://github.com/radareorg/radare2/issues/17034">#Issue 17034</a> for more details.</p>
+<p>To save your analysis for now, write your own script which records the function name, variable name, etc. for example:</p>
+<pre><code class="language-sh">vim sample_A.r2
+
+e scr.utf8 = false
+s 0x000403ce0
+aaa
+s fcn.00403130
+afn return_delta_to_heapaddr
+afvn iter var_04h
+...
+
+</code></pre>
 <h2><a class="header" href="#usable-variables-in-expression" id="usable-variables-in-expression">Usable variables in expression</a></h2>
 <p>The <code>?$?</code> command will display the variables that can be used in any math
 operation inside the r2 shell. For example, using the <code>? $$</code> command to evaluate
