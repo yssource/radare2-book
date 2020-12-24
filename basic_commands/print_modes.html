@@ -147,7 +147,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#print-modes" id="print-modes">Print Modes</a></h2>
+                        <p># Print Modes</p>
 <p>One of the key features of radare2 is displaying information in many formats. The goal is to offer a selection of display choices to interpret binary data in the best possible way.</p>
 <p>Binary data can be represented as integers, shorts, longs, floats, timestamps, hexpair strings, or more complex formats like C structures, disassembly listings, decompilation listing, be a result of an external processing...</p>
 <p>Below is a list of available print modes listed by <code>p?</code>:</p>
@@ -421,10 +421,10 @@ unsigned char buffer[_BUFFER_SIZE] = {
 <pre><code>$ radare2 /usr/lib/gstreamer-1.0/libgstflv.so
 [0x00006020]&gt; aa; pdf @ sym.gst_plugin_flv_get_desc
 [x] Analyze all flags starting with sym. and entry0 (aa)
-╭ 8: sym.gst_plugin_flv_get_desc ();
-│ [...]
-│           0x00013830      488d0549db0000  lea rax, section..data.rel.ro ; 0x21380
-╰           0x00013837      c3              ret
+sym.gst_plugin_flv_get_desc ();
+[...]
+      0x00013830      488d0549db0000  lea rax, section..data.rel.ro ; 0x21380
+      0x00013837      c3              ret
 [0x00006020]&gt; s section..data.rel.ro
 [0x00021380]&gt; pf ii*z*zp*z*z*z*z*z*z major minor name desc init version license source package origin release_datetime
             major : 0x00021380 = 1
@@ -446,8 +446,8 @@ unsigned char buffer[_BUFFER_SIZE] = {
 <li><code>D</code> : asm.arch disassembler   bsize bytes</li>
 </ul>
 <pre><code>[0x00404888]&gt; pd 1
-			;-- entry0:
-			0x00404888    31ed         xor ebp, ebp
+;-- entry0:
+0x00404888    31ed         xor ebp, ebp
 </code></pre>
 <h3><a class="header" href="#selecting-target-architecture" id="selecting-target-architecture">Selecting Target Architecture</a></h3>
 <p>The architecture flavor for the disassembler is defined by the <code>asm.arch</code> eval variable. You can use <code>e asm.arch=??</code> to list all available architectures.</p>
