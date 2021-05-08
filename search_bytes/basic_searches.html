@@ -183,6 +183,19 @@ Searching 8 bytes from 0x00400238 to 0x0040488f: 53 74 61 6c 6c 6d 61 6e
 <p>if, instead, you are searching for a string of hexadecimal values, you're probably better of using the <code>/x</code> command:</p>
 <pre><code>[0x00000000]&gt; /x 7F454C46
 </code></pre>
+<p>If you want to mask some nibble during the search you can use the symbol <strong>.</strong> to allow any nibble value to match:</p>
+<pre><code>[0x00407354]&gt; /x 80..80
+0x0040d4b6 hit3_0 800080
+0x0040d4c8 hit3_1 808080
+0x004058a6 hit3_2 80fb80
+</code></pre>
+<p>You may not know some bit values of your hexadecimal pattern. Thus you may use a bit mask on your pattern. Each bit set to one in the mask indicates to search the bit value in the pattern. A bit set to zero in the mask indicates that the value of a matching value can be 0 or 1:</p>
+<pre><code>[0x00407354]&gt; /x 808080:ff80ff
+0x0040d4c8 hit4_0 808080
+0x0040d7b0 hit4_1 808080
+0x004058a6 hit4_2 80fb80    
+</code></pre>
+<p>You can notice that the command <code>/x 808080:ff00ff</code> is equivalent to the command <code>/x 80..80</code>.</p>
 <p>Once the search is done, the results are stored in the <code>searches</code> flag space.</p>
 <pre><code>[0x00000000]&gt; fs
 0    0 . strings
