@@ -2680,7 +2680,7 @@ lseek
 Searching 8 bytes from 0x00400238 to 0x0040488f: 53 74 61 6c 6c 6d 61 6e
 [# ]hits: 004138 &lt; 0x0040488f  hits = 0
 </code></pre>
-<p>It is possible to specify hexadecimal escape sequences in the search string by prepending them with &quot;\x&quot;:</p>
+<p>It is possible to specify hexadecimal escape sequences in the search string by prepending them with <code>\x</code>:</p>
 <pre><code>[0x00000000]&gt; / \x7FELF
 </code></pre>
 <p>if, instead, you are searching for a string of hexadecimal values, you're probably better of using the <code>/x</code> command:</p>
@@ -6784,7 +6784,7 @@ s entry0
 <pre><code>$ rabin2 -i /bin/ls
 [Imports]
 nth vaddr      bind   type   lib name
-―――――――――――――――――――――――――――――――――――――
+-------------------------------------
    1 0x000032e0  GLOBAL    FUNC __ctype_toupper_loc
    2 0x000032f0  GLOBAL    FUNC getenv
    3 0x00003300  GLOBAL    FUNC sigprocmask
@@ -6815,7 +6815,7 @@ nth vaddr      bind   type   lib name
 [Exports]
 
 nth  paddr       vaddr      bind   type size lib name
-―――――――――――――――――――――――――――――――――――――――――――――――――――――
+-----------------------------------------------------
 210 0x000ae1f0 0x000ae1f0 GLOBAL   FUNC  200 r_bin_java_print_exceptions_attr_summary
 211 0x000afc90 0x000afc90 GLOBAL   FUNC  135 r_bin_java_get_args
 212 0x000b18e0 0x000b18e0 GLOBAL   FUNC   35 r_bin_java_get_item_desc_from_bin_cp_list
@@ -6832,7 +6832,7 @@ nth  paddr       vaddr      bind   type size lib name
 [Symbols]
 
 nth paddr       vaddr      bind   type   size lib name
-――――――――――――――――――――――――――――――――――――――――――――――――――――――
+------------------------------------------------------
 110 0x000150a0 0x000150a0 GLOBAL FUNC 56 _obstack_allocated_p
 111 0x0001f600 0x0021f600 GLOBAL  OBJ  8 program_name
 112 0x0001f620 0x0021f620 GLOBAL  OBJ  8 stderr
@@ -6926,7 +6926,7 @@ libz.so.1 =&gt; /lib64/libz.so.1 (0x00007f94af2e8000)
 <pre><code>$ rabin2 -z /bin/ls | head
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 000 0x000160f8 0x000160f8  11  12 (.rodata) ascii dev_ino_pop
 001 0x00016188 0x00016188  10  11 (.rodata) ascii sort_files
 002 0x00016193 0x00016193   6   7 (.rodata) ascii posix-
@@ -6958,7 +6958,7 @@ Cs 11 @ 0x00016250
 [Sections]
 
 nth paddr          size vaddr         vsize perm name
-―――――――――――――――――――――――――――――――――――――――――――――――――――――
+-----------------------------------------------------
 00 0x00000000     0 0x00000000     0 ----
 01 0x00000238    28 0x00000238    28 -r-- .interp
 02 0x00000254    32 0x00000254    32 -r-- .note.ABI_tag
@@ -8386,7 +8386,7 @@ Invalid Password!
 <pre><code>$ rabin2 -z ./crackme0x00
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000568 0x08048568 24  25   .rodata ascii IOLI Crackme Level 0x00\n
 1   0x00000581 0x08048581 10  11   .rodata ascii Password: 
 2   0x0000058f 0x0804858f 6   7    .rodata ascii 250382
@@ -8395,7 +8395,7 @@ nth paddr      vaddr      len size section type  string
 </code></pre>
 <p>So we know what the following section is, this section is the header shown when the application is run.</p>
 <pre><code>nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000568 0x08048568 24  25   .rodata ascii IOLI Crackme Level 0x00\n
 </code></pre>
 <p>Here we have the prompt for the password.</p>
@@ -8428,7 +8428,7 @@ Invalid Password!
 <pre><code>$ rabin2 -z ./crackme0x01
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000528 0x08048528 24  25   .rodata ascii IOLI Crackme Level 0x01\n
 1   0x00000541 0x08048541 10  11   .rodata ascii Password: 
 2   0x0000054f 0x0804854f 18  19   .rodata ascii Invalid Password!\n
@@ -8538,7 +8538,7 @@ Invalid Password!
 <pre><code>$ rabin2 -z ./crackme0x02
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000548 0x08048548 24  25   .rodata ascii IOLI Crackme Level 0x02\n
 1   0x00000561 0x08048561 10  11   .rodata ascii Password:
 2   0x0000056f 0x0804856f 15  16   .rodata ascii Password OK :)\n
@@ -9178,7 +9178,7 @@ Password OK!
 <pre><code class="language-shell">rabin2 -z ./crackme0x06
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000738 0x08048738 4   5    .rodata ascii LOLO
 1   0x00000740 0x08048740 13  14   .rodata ascii Password OK!\n
 2   0x0000074e 0x0804874e 20  21   .rodata ascii Password Incorrect!\n
@@ -9382,7 +9382,7 @@ Password OK!
 <pre><code class="language-sh">$ rabin2 -z ./crackme0x07
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x000007a8 0x080487a8 4   5    .rodata ascii LOLO
 1   0x000007ad 0x080487ad 20  21   .rodata ascii Password Incorrect!\n
 2   0x000007c5 0x080487c5 13  14   .rodata ascii Password OK!\n

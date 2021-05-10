@@ -158,7 +158,7 @@ Invalid Password!
 <pre><code>$ rabin2 -z ./crackme0x00
 [Strings]
 nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000568 0x08048568 24  25   .rodata ascii IOLI Crackme Level 0x00\n
 1   0x00000581 0x08048581 10  11   .rodata ascii Password: 
 2   0x0000058f 0x0804858f 6   7    .rodata ascii 250382
@@ -167,7 +167,7 @@ nth paddr      vaddr      len size section type  string
 </code></pre>
 <p>So we know what the following section is, this section is the header shown when the application is run.</p>
 <pre><code>nth paddr      vaddr      len size section type  string
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+-------------------------------------------------------
 0   0x00000568 0x08048568 24  25   .rodata ascii IOLI Crackme Level 0x00\n
 </code></pre>
 <p>Here we have the prompt for the password.</p>
