@@ -4003,7 +4003,7 @@ spec.win.u32=unsigned int
 Those types are parsed by a C11-compatible parser and stored in
 the internal SDB, thus are introspectable with <code>k</code> command.</p>
 <p>Most of the related commands are located in <code>t</code> namespace:</p>
-<pre><code>[0x000051c0]&gt; t?
+<pre><code>[0x00000000]&gt; t?
 | Usage: t   # cparse types commands
 | t                          List all loaded types
 | tj                         List all loaded types as json
@@ -4036,11 +4036,14 @@ not <code>char</code>, <code>_Bool</code>, or <code>short</code>. Because those 
 from one platform to another, radare2 uses <code>definite</code> types like as
 <code>int8_t</code> or <code>uint64_t</code> and will convert <code>int</code> to <code>int32_t</code> or <code>int64_t</code>
 depending on the binary or debuggee platform/compiler.</p>
-<p>Basic types can be listed using <code>t</code> command, for the structured types
-you need to use <code>ts</code>, <code>tu</code> or <code>te</code> for enums:</p>
-<pre><code>[0x000051c0]&gt; t
+<p>Basic types can be listed using <code>t</code> command. For the structured types
+you need to use <code>ts</code>, for unions use <code>tu</code> and for enums — <code>te</code>.</p>
+<pre><code>[0x00000000]&gt; t
 char
 char *
+double
+float
+gid_t
 int
 int16_t
 int32_t
@@ -4048,7 +4051,18 @@ int64_t
 int8_t
 long
 long long
-...
+pid_t
+short
+size_t
+uid_t
+uint16_t
+uint32_t
+uint64_t
+uint8_t
+unsigned char
+unsigned int
+unsigned short
+void *
 </code></pre>
 <h3><a class="header" href="#loading-types" id="loading-types">Loading types</a></h3>
 <p>There are three easy ways to define a new type:</p>
@@ -4057,20 +4071,20 @@ long long
 <li>From the file using <code>to &lt;filename&gt;</code> command</li>
 <li>Open  an <code>$EDITOR</code> to type the definitions in place using <code>to -</code></li>
 </ul>
-<pre><code>[0x000051c0]&gt; &quot;td struct foo {char* a; int b;}&quot;
-[0x000051c0]&gt; cat ~/radare2-regressions/bins/headers/s3.h
+<pre><code>[0x00000000]&gt; &quot;td struct foo {char* a; int b;}&quot;
+[0x00000000]&gt; cat ~/radare2-regressions/bins/headers/s3.h
 struct S1 {
     int x[3];
     int y[4];
     int z;
 };
-[0x000051c0]&gt; to ~/radare2-regressions/bins/headers/s3.h
-[0x000051c0]&gt; ts
+[0x00000000]&gt; to ~/radare2-regressions/bins/headers/s3.h
+[0x00000000]&gt; ts
 foo
 S1
 </code></pre>
 <p>Also note there is a config option to specify include directories for types parsing</p>
-<pre><code>[0x00000000]&gt; e??~dir.type
+<pre><code>[0x00000000]&gt; e? dir.types
 dir.types: Default path to look for cparse type files
 [0x00000000]&gt; e dir.types
 /usr/include
@@ -4080,19 +4094,23 @@ dir.types: Default path to look for cparse type files
 the C type description (or to be precise it's SDB representation)
 into the sequence of <code>pf</code> commands. See more about <a href="analysis/../basic_commands/print_modes.html">print format</a>.</p>
 <p>The <code>tp</code> command uses the <code>pf</code> string to print all the members of type at the current offset/given address:</p>
-<pre><code>[0x000051c0]&gt; ts foo
+<pre><code>[0x00000000]&gt; &quot;td struct foo {char* a; int b;}&quot;
+[0x00000000]&gt; wx 68656c6c6f000c000000
+[0x00000000]&gt; wz world @ 0x00000010 ; wx 17 @ 0x00000016
+[0x00000000]&gt; px
+[0x00000000]&gt; ts foo
 pf zd a b
-[0x000051c0]&gt; tp foo
- a : 0x000051c0 = 'hello'
- b : 0x000051cc = 10
-[0x000051c0]&gt; tp foo 0x000053c0
- a : 0x000053c0 = 'world'
- b : 0x000053cc = 20
+[0x00000000]&gt; tp foo
+ a : 0x00000000 = &quot;hello&quot;
+ b : 0x00000006 = 12
+[0x00000000]&gt; tp foo @ 0x00000010
+ a : 0x00000010 = &quot;world&quot;
+ b : 0x00000016 = 23
 </code></pre>
 <p>Also, you could fill your own data into the struct and print it using <code>tpx</code> command</p>
-<pre><code>[0x000051c0]&gt; tpx foo 4141414144141414141442001000000
- a : 0x000051c0 = AAAAD.....B
- b : 0x000051cc = 16
+<pre><code>[0x00000000]&gt; tpx foo 414243440010000000
+ a : 0x00000000 = &quot;ABCD&quot;
+ b : 0x00000005 = 16
 </code></pre>
 <h3><a class="header" href="#linking-types" id="linking-types">Linking Types</a></h3>
 <p>The <code>tp</code> command just performs a temporary cast. But if we want to link some address or variable
