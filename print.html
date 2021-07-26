@@ -368,36 +368,36 @@ $ sudo gmake install
 make purge
 </code></pre>
 <h2><a class="header" href="#windows" id="windows">Windows</a></h2>
-<p>Radare2 relies on the Meson build system generator to support compilation on all platforms, including Windows. Meson will generate a Visual Studio Solution, all the necessary project files, and wire up the Microsoft Visual C++ compiler for you.</p>
-<blockquote>
-<p><strong>tip</strong> You can download nightly binaries from https://ci.appveyor.com/project/radareorg/radare2/history. Be sure to download only from <code>master</code> branch!</p>
-</blockquote>
+<p>To build <code>r2</code> on Windows you have to use the Meson build system. Despite being able to build r2 on Windows using cygwin, mingw or wsl using the acr/make build system it is not the recommended/official/supported method and may result on unexpected results.</p>
+<p>Binary builds can be downloaded from the release page or the github CI artifacts from every single commit for 32bit and 64bit Windows.</p>
+<ul>
+<li>https://github.com/radareorg/radare2/releases</li>
+</ul>
 <h3><a class="header" href="#prerequisites" id="prerequisites">Prerequisites</a></h3>
 <ul>
-<li>Visual Studio 2015 (or higher)</li>
+<li>3 GB of free disk space</li>
+<li>Visual Studio 2019 (or higher)</li>
 <li>Python 3</li>
 <li>Meson</li>
+<li>Ninja</li>
 <li>Git</li>
 </ul>
 <h3><a class="header" href="#step-by-step" id="step-by-step">Step-by-Step</a></h3>
 <h4><a class="header" href="#install-visual-studio-2015-or-higher" id="install-visual-studio-2015-or-higher">Install Visual Studio 2015 (or higher)</a></h4>
 <p>Visual Studio must be installed with a Visual C++ compiler, supporting C++ libraries, and the appropriate Windows SDK for the target platform version.</p>
 <ul>
-<li>In the Visual Studio 2015 installer, ensure <code>Programming Languages &gt; Visual C++</code> is selected</li>
-<li>In the Visual Studio 2017+ installers, ensure the <code>Desktop development with C++</code> workload is selected</li>
+<li>Ensure <code>Programming Languages &gt; Visual C++</code> is selected</li>
 </ul>
 <p>If you need a copy of Visual Studio, the Community versions are free and work great.</p>
 <ul>
-<li><a href="https://my.visualstudio.com/Downloads?q=Visual%20Studio%202015%20with%20Update%203">Download Visual Studio 2015 Community (registration required)</a></li>
-<li><a href="https://visualstudio.microsoft.com/downloads/">Download Visual Studio 2017 Community</a></li>
+<li><a href="https://visualstudio.microsoft.com/downloads/">Download Visual Studio 2019</a></li>
 </ul>
 <h4><a class="header" href="#install-python-3-and-meson-via-conda" id="install-python-3-and-meson-via-conda">Install Python 3 and Meson via Conda</a></h4>
-<p>It is strongly recommended you install Conda — a Python environment management system — when working with Python on the Windows platform. This will isolate the Radare2 build environment from other installed Python versions and minimize potential conflicts.</p>
-<h5><a class="header" href="#set-up-conda" id="set-up-conda">Set Up Conda:</a></h5>
-<ol>
-<li>Download the appropriate Conda (Python 3.x) for your platform (https://conda.io/miniconda.html)</li>
-<li>Install Conda with the recommended defaults</li>
-</ol>
+<p>Conda is our probably the best Python distribution for Windows. But you can skip the next steps if you have Python installed already</p>
+<ul>
+<li>https://docs.conda.io/en/latest/miniconda.html</li>
+<li>https://repo.anaconda.com/archive/</li>
+</ul>
 <h5><a class="header" href="#create-a-python-environment-for-radare2" id="create-a-python-environment-for-radare2">Create a Python Environment for Radare2</a></h5>
 <p>Follow these steps to create and activate a Conda environment named <em>r2</em>. All instructions from this point on will assume this name matches your environment, but you may change this if desired.</p>
 <ol>
@@ -407,90 +407,61 @@ make purge
 </ol>
 <p>Any time you wish to enter this environment, open the Anaconda Prompt and re-issue <code>activate r2</code>. Conversely, <code>deactivate</code> will leave the environment.</p>
 <h5><a class="header" href="#install-meson" id="install-meson">Install Meson</a></h5>
-<ol>
-<li>Enter the Radare2 Conda environment, if needed (<code>activate r2</code>)</li>
-<li>Download https://github.com/mesonbuild/meson/archive/master.zip</li>
-<li><code>pip install \path\to\downloaded\master.zip</code></li>
-<li>Verify Meson is version 0.48 or higher (<code>meson -v</code>)</li>
-</ol>
+<p>Ensure Meson is version 0.48 or higher (<code>meson -v</code>)</p>
+<pre><code>pip install meson
+</code></pre>
 <h4><a class="header" href="#install-git-for-windows" id="install-git-for-windows">Install Git for Windows</a></h4>
-<p>All Radare2 code is managed via the Git version control system and <a href="https://github.com/radare">hosted on GitHub</a>.</p>
+<p>All Radare2 code is managed via the Git version control system and <a href="https://github.com/radareorg">hosted on GitHub</a>.</p>
 <p>Follow these steps to install Git for Windows.</p>
-<ol>
-<li>Download Git for Windows (https://git-scm.com/download/win)</li>
-</ol>
-<p>As you navigate the install wizard, we recommend you set these options when they appear:
-* Use a TrueType font in all console windows
-* Use Git from the Windows Command Prompt
-* Use the native Windows Secure Channel library (instead of OpenSSL)
-* Checkout Windows-style, commit Unix-style line endings (core.autocrlf=true)
-* Use Windows' default console window (instead of Mintty)</p>
-<ol start="2">
-<li>Close any previously open console windows and re-open them to ensure they receive the new PATH</li>
-<li>Ensure <code>git --version</code> works</li>
-</ol>
+<p>Download Git for Windows </p>
+<ul>
+<li>https://git-scm.com/download/win</li>
+</ul>
+<p>Check the following options during the Wizard steps.</p>
+<ul>
+<li>Use a TrueType font in all console windows</li>
+<li>Use Git from the Windows Command Prompt</li>
+<li>Use the native Windows Secure Channel library (instead of OpenSSL)</li>
+<li>Checkout Windows-style, commit Unix-style line endings (core.autocrlf=true)</li>
+<li>Use Windows' default console window (instead of Mintty)</li>
+<li>Ensure <code>git --version</code> works after install</li>
+</ul>
 <h4><a class="header" href="#get-radare2-code" id="get-radare2-code">Get Radare2 Code</a></h4>
 <p>Follow these steps to clone the Radare2 git repository.</p>
-<ol>
-<li>In your Radare2 Conda environment, navigate to a location where the code will be saved and compiled. This location needs approximately <strong>3-4GiB</strong> of space</li>
-<li>Clone the repository with <code>git clone https://github.com/radareorg/radare2.git</code></li>
-</ol>
+<pre><code>git clone https://github.com/radareorg/radare2
+</code></pre>
 <h4><a class="header" href="#compile-radare2-code" id="compile-radare2-code">Compile Radare2 Code</a></h4>
 <p>Follow these steps to compile the Radare2 Code.</p>
-<p>Compiled binaries will be installed into the <code>dest</code> folder.</p>
-<ol>
-<li>
-<p>Enter the Radare2 Conda environment</p>
-</li>
-<li>
-<p>Navigate to the root of the Radare2 sources (<code>cd radare2</code>)</p>
-</li>
-<li>
-<p>Initialize Visual Studio tooling by executing the command below that matches the version of Visual Studio installed on your machine and the version of Radare2 you wish to install:</p>
-<ul>
-<li>
-<p><strong>Visual Studio 2015:</strong></p>
-<p>Note: For the 64-bit version change only the <code>x86</code> at the very end of the command below to <code>x64</code>.</p>
-<p><code>&quot;%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat&quot; x86</code></p>
-</li>
-<li>
-<p><strong>Visual Studio 2017:</strong></p>
-<p>Note 1: Change <code>Community</code> to either <code>Professional</code> or <code>Enterprise</code> in the command below depending on the version installed.</p>
-<p>Note 2: Change <code>vcvars32.bat</code> to <code>vcvars64.bat</code> in the command below for the 64-bit version.</p>
-<p><code>&quot;%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat&quot;</code></p>
-</li>
-<li>
-<p><strong>Visual Studio Preview:</strong></p>
-<p>Note 1: Change <code>Community</code> to either <code>Professional</code> or <code>Enterprise</code> in the command below depending on the version installed.</p>
-<p>Note 2: Change <code>vcvars32.bat</code> to <code>vcvars64.bat</code> in the command below for the 64-bit version.</p>
-<p><code>&quot;%ProgramFiles(x86)%\Microsoft Visual Studio\Preview\Community\VC\Auxiliary\Build\vcvars32.bat&quot;</code></p>
-</li>
-</ul>
-</li>
-<li>
-<p>Generate the build system with Meson:</p>
-</li>
+<pre><code>* **Visual Studio 2017:**
+
+    Note 1: Change `Community` to either `Professional` or `Enterprise` in the command below depending on the version installed.
+
+    Note 2: Change `vcvars32.bat` to `vcvars64.bat` in the command below for the 64-bit version.
+
+     `&quot;%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat&quot;`
+</code></pre>
+<ol start="4">
+<li>Generate the build system with Meson:</li>
 </ol>
-<p>Note 1: Change <code>debug</code> to <code>release</code> in the command below depending on whether the latest version or release version is desired.</p>
-<p>Note 2: If you are using visual studio 2017, you can change swap <code>vs2015</code> for <code>vs2017</code>.</p>
-<p><code>meson build --buildtype debug --backend vs2015 --prefix %cd%\dest</code></p>
-<p>Meson currently requires <code>--prefix</code> to point to an absolute path. We use the %CD% pseudo-variable to get the absolute path to the current working directory.</p>
-<ol start="5">
-<li>
-<p>Start a build:</p>
-<p>Note: Change <code>Debug</code> to <code>Release</code> in the command below depending on the version desired.</p>
-<p><code>msbuild build\radare2.sln /p:Configuration=Debug /m</code></p>
+<p>Meson takes some arguments to configure the build type, but in short you should be able to build r2 without any meson flag. For Visual Studio. Note: Change <code>Debug</code> to <code>Release</code> in the command below depending on the version desired.</p>
+<pre><code>meson b --buildtype debug --backend vs2019 --prefix %cd%\dest
+msbuild build\radare2.sln /p:Configuration=Debug /m
+</code></pre>
+<p>For Ninja (no visual studio interface required, just msvc compiler toolchain installed):</p>
+<pre><code>meson b
+ninja -C b
+</code></pre>
+<p>Finally run this line to install r2 into the given absolute prefix directory:</p>
+<pre><code>meson install -C build --no-rebuild
+</code></pre>
+<h4><a class="header" href="#build-options-notes" id="build-options-notes">Build options notes</a></h4>
 <p>The <code>/m[axcpucount]</code> switch creates one MSBuild worker process per logical processor on your machine. You can specify a numeric value (e.g. <code>/m:2</code>) to limit the number of worker processes if needed. (This should not be confused with the Visual C++ Compiler switch <code>/MP</code>.)</p>
 <p>If you get an error with the 32-bit install that says something along the lines of <code>error MSB4126: The specified solution configuration &quot;Debug|x86&quot; is invalid.</code> Get around this by adding the following argument to the command: <code>/p:Platform=Win32</code></p>
-</li>
-<li>
-<p>Install into your destination folder: <code>meson install -C build --no-rebuild</code></p>
-</li>
-<li>
 <p>Check your Radare2 version: <code>dest\bin\radare2.exe -v</code></p>
-</li>
-</ol>
 <h4><a class="header" href="#check-that-radare2-runs-from-all-locations" id="check-that-radare2-runs-from-all-locations">Check That Radare2 Runs From All Locations</a></h4>
+<p>Note that <code>r2</code> in UNIX systems is just a symlink to the <code>radare2</code> executable. So, in case you want to have it in Windows you can just <code>copy radare2.exe r2.exe</code> and add the directory into the system-wide PATH env var in the <strong>File Explorer</strong> settings.</p>
+<p>Open the <code>cmd.exe</code> console and type <code>r2 -v</code> to confirm the whole process was successful.</p>
+<h4><a class="header" href="#notes-about-setting-up-the-system-wide-env-var" id="notes-about-setting-up-the-system-wide-env-var">Notes about setting up the system-wide env var</a></h4>
 <ol>
 <li>In the file explorer go to the folder Radare2 was just installed in.</li>
 <li>From this folder go to <code>dest</code> &gt; <code>bin</code> and keep this window open.</li>
